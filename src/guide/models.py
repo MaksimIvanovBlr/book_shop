@@ -4,7 +4,7 @@ from django.db import models
 class Guide(models.Model):
     """layout for reference"""
 
-    discripton = models.TextField(
+    description = models.TextField(
         verbose_name='Описание',
         max_length=100,
         blank=True,
@@ -70,6 +70,39 @@ class Publishing(Guide):
     """ reference of publishing"""
     name = models.CharField(
         verbose_name='Имя издательства',
+        max_length=40
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class Binding(Guide):
+    """ type of book binding"""
+    name = models.CharField(
+        verbose_name='Тип переплета',
+        max_length=40
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class Format(Guide):
+    """ book format( for ex.:крупные, средние...)"""
+    name = models.CharField(
+        verbose_name='Формат книги',
+        max_length=40
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class Restrictions(Guide):
+    """ agr restrictions for book.(for ex.: с 6 лет)"""
+    name = models.CharField(
+        verbose_name='Возрастные ограничения',
         max_length=40
     )
 
