@@ -1,9 +1,12 @@
 from django.db import models
 
 
-class Guide(models.Model):
-    """layout for reference"""
-
+class Genre(models.Model):
+    """справочник жанров"""
+    name = models.CharField(
+        verbose_name="Назание жанра",
+        max_length=40
+    )
     description = models.TextField(
         verbose_name='Описание',
         max_length=100,
@@ -11,30 +14,22 @@ class Guide(models.Model):
         null=True
     )
 
-    # def __str__(self):
-    #     return self.name
-
-
-class Genre(Guide):
-    """books reference book for genres"""
-    name = models.CharField(
-        verbose_name="Назание жанра",
-        max_length=40
-    )
-
     def __str__(self):
         return self.name
 
 
-class Author(Guide):
-    """reference of authors"""
+class Author(models.Model):
+    """справочник авторов"""
     name = models.CharField(
         verbose_name='Имя автора',
         max_length=40
     )
     surname = models.CharField(
         verbose_name='Фамилия автора',
-        max_length=40
+        max_length=40,
+        blank=True,
+        null=True
+
     )
     birthday = models.DateField(
         verbose_name='Дата рождения'
@@ -55,54 +50,27 @@ class Author(Guide):
         return self.name
 
 
-class Series(Guide):
-    """reference book series"""
+class Series(models.Model):
+    """серия книг"""
     name = models.CharField(
         verbose_name='Название серии',
         max_length=40
     )
+    description = models.TextField(
+        verbose_name='Описание',
+        max_length=100,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return self.name
 
 
-class Publishing(Guide):
-    """ reference of publishing"""
+class Publishing(models.Model):
+    """ издательство"""
     name = models.CharField(
         verbose_name='Имя издательства',
-        max_length=40
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Binding(Guide):
-    """ type of book binding"""
-    name = models.CharField(
-        verbose_name='Тип переплета',
-        max_length=40
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Format(Guide):
-    """ book format( for ex.:крупные, средние...)"""
-    name = models.CharField(
-        verbose_name='Формат книги',
-        max_length=40
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Restrictions(Guide):
-    """ agr restrictions for book.(for ex.: с 6 лет)"""
-    name = models.CharField(
-        verbose_name='Возрастные ограничения',
         max_length=40
     )
 
