@@ -23,6 +23,12 @@ urlpatterns = [
     path('author/<int:pk>', g_views.DetailAuthor.as_view()),
     path('update-author/<int:pk>', g_views.UpdateAuthor.as_view()),
     path('delete-author/<int:pk>', g_views.DeleteAuthor.as_view()),
-    path('list-author/', g_views.ListAuthor.as_view())
+    path('list-author/', g_views.ListAuthor.as_view()),
+
+    path('add-genre/', g_views.AddGenre.as_view()),
+    path('genre/<int:pk>', g_views.DetailGenre.as_view()),
+    path('update-genre/<int:pk>', g_views.UpdateGenre.as_view()),
+    path('delete-genre/<int:pk>', g_views.DeleteGenre.as_view()),
+    path('list-genre/', g_views.ListGenre.as_view())
 
 ]

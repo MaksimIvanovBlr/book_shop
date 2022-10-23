@@ -17,6 +17,9 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f'/genre/{self.pk}'
+
 
 class Author(models.Model):
     """справочник авторов"""
@@ -65,6 +68,9 @@ class Series(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return f'/author/{self.pk}'   
 
 
 class Publishing(models.Model):

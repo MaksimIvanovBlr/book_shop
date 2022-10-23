@@ -1,0 +1,22 @@
+ жанорв<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список жанорв</title>
+</head>
+<body>
+    <h1>Список жанорв</h1>
+    <table border="1">
+    {% for obj in object_list %}
+      <tr>
+        <td><a href= "/update-genre/{{obj.pk}}"> {{obj.pk}} </a> </td>
+        <td> {{obj.name}} </td>
+        <td><a href="/delete-genre/{{obj.pk}}">Удалить</a></td>
+      </tr> 
+    {% endfor %}
+    </table>        
+</body>
+
+</html>
