@@ -34,11 +34,7 @@ class Author(models.Model):
     birthday = models.DateField(
         verbose_name='Дата рождения'
     )
-    date_of_death = models.DateField(
-        verbose_name='Дата смерти',
-        blank=True,
-        null=True
-    )
+
     nation = models.CharField(
         verbose_name='Страна',
         max_length=40,
@@ -47,7 +43,11 @@ class Author(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.surname
+
+    def get_absolute_url(self):
+        return f'/author/{self.pk}'
+    
 
 
 class Series(models.Model):
