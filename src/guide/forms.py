@@ -17,3 +17,8 @@ class SeriesForm(forms.ModelForm):
     class Meta:
         model = models.Series
         fields = '__all__'
+
+class PublishingForm(forms.ModelForm):
+    class Meta:
+        model = models.Publishing
+        fields = '__all__'

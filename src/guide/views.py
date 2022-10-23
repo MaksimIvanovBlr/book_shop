@@ -83,3 +83,30 @@ class DeleteSeries(generic.DeleteView):
 class ListSeries(generic.ListView):
     model = models.Series
     template_name = 'guide/list_series.html'
+
+
+# издательство
+
+class AddPublishing(generic.CreateView):
+    model = models.Publishing
+    form_class = forms.PublishingForm
+    template_name = 'guide/add_publishing.html'
+
+class DetailPublishing(generic.DetailView):
+    model = models.Publishing
+    template_name = 'guide/detail_publishing.html'
+
+class UpdatePublishing(generic.UpdateView):
+    model = models.Publishing
+    form_class = forms.PublishingForm
+    template_name = 'guide/update_publishing.html'
+
+class DeletePublishing(generic.DeleteView):
+    model = models.Publishing
+    template_name = 'guide/delete_publishing.html'
+    def get_success_url(self):
+        return '/list-publishing'
+
+class ListPublishing(generic.ListView):
+    model = models.Publishing
+    template_name = 'guide/list_publishing.html'

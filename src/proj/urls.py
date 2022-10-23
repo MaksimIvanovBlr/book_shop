@@ -35,7 +35,12 @@ urlpatterns = [
     path('series/<int:pk>', g_views.DetailSeries.as_view()),
     path('update-series/<int:pk>', g_views.UpdateSeries.as_view()),
     path('delete-series/<int:pk>', g_views.DeleteSeries.as_view()),
-    path('list-series/', g_views.ListSeries.as_view())
+    path('list-series/', g_views.ListSeries.as_view()),
 
+    path('add-publishing/', g_views.AddPublishing.as_view()),
+    path('publishing/<int:pk>', g_views.DetailPublishing.as_view()),
+    path('update-publishing/<int:pk>', g_views.UpdatePublishing.as_view()),
+    path('delete-publishing/<int:pk>', g_views.DeletePublishing.as_view()),
+    path('list-publishing/', g_views.ListPublishing.as_view())
 
 ]

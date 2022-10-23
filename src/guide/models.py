@@ -76,9 +76,12 @@ class Series(models.Model):
 class Publishing(models.Model):
     """ издательство"""
     name = models.CharField(
-        verbose_name='Имя издательства',
+        verbose_name='Название издательства',
         max_length=40
     )
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return f'/publishing/{self.pk}'  
