@@ -12,3 +12,8 @@ class GenreForm(forms.ModelForm):
     class Meta:
         model = models.Genre
         fields = '__all__'
+
+class SeriesForm(forms.ModelForm):
+    class Meta:
+        model = models.Series
+        fields = '__all__'

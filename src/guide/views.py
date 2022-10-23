@@ -57,3 +57,29 @@ class DeleteGenre(generic.DeleteView):
 class ListGenre(generic.ListView):
     model = models.Genre
     template_name = 'guide/list_genre.html'
+
+# серии
+
+class AddSeries(generic.CreateView):
+    model = models.Series
+    form_class = forms.SeriesForm
+    template_name = 'guide/add_series.html'
+
+class DetailSeries(generic.DetailView):
+    model = models.Series
+    template_name = 'guide/detail_series.html'
+
+class UpdateSeries(generic.UpdateView):
+    model = models.Series
+    form_class = forms.SeriesForm
+    template_name = 'guide/update_series.html'
+
+class DeleteSeries(generic.DeleteView):
+    model = models.Series
+    template_name = 'guide/delete_series.html'
+    def get_success_url(self):
+        return '/list-series'
+
+class ListSeries(generic.ListView):
+    model = models.Series
+    template_name = 'guide/list_series.html'

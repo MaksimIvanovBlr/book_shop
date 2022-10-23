@@ -1,18 +1,18 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактировать жанр</title>
+    <title>Информация о серии</title>
 </head>
 <body>
-    <h1>Редактировать жанр</h1>
-        <form action="" method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-        <input type="submit" value="Ok">
-    </form>
+    <h1>Информация о серии</h1>
     {{object.pk}}<br>
     {{object.name}}<br>
+    {{object.description}}<br>
+        <form action="" method="post">
+            {% csrf_token %}
+    </form>
+</body>
 </html>
