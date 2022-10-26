@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Список
+{% endblock title %}
+
+{% block body %}
+
+    <h1>{{operation}}</h1>
+    <table class= "table table-bordered border-primary">
+    {% for obj in object_list %}
+      <tr>
+        <td><a href= '{% url update pk=obj.pk %}'> {{obj.pk}} </a> </td>
+        <td> {{obj.name}}</td>
+        <td><a href="{% url delete pk=obj.pk%}" class="btn btn-danger"><i class="bi bi-x-circle"></i></a></td>
+      </tr> 
+    {% endfor %}
+    </table>        
+    {% endblock body %}

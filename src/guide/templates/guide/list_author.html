@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список авторов</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block title %}
+Список авторов
+{% endblock title %}
+
+{% block body %}
+
+
     <h1>Список авторов</h1>
-    <table border="1">
+    <table class="table table-bordered border-primary">
     {% for obj in object_list %}
       <tr>
-        <td><a href= "/update-author/{{obj.pk}}"> {{obj.pk}} </a> </td>
+        <td><a href= "{% url 'guide:update-author' pk=obj.pk %}"> {{obj.pk}} </a> </td>
         <td>{{obj.surname}} {{obj.name}} {{obj.birthday}} {{obj.nation}}</td>
-        <td><a href="/delete-author/{{obj.pk}}">Удалить</a></td>
+        <td><a href= "{% url 'guide:delete-author' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-x-circle"></i></a></td>
       </tr> 
     {% endfor %}
     </table>        
-</body>
-
-</html>
+    {% endblock body %}

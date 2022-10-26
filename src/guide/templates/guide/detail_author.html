@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Информация об авторе</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block title %}
+Информация об авторе
+{% endblock title %}
+
+{% block body %}
+
     <h1>Информация об авторе</h1>
     {{object.pk}}<br>
     {{object.name}}<br>
@@ -16,5 +16,4 @@
         <form action="" method="post">
             {% csrf_token %}
     </form>
-</body>
-</html>
+{% endblock body %}
