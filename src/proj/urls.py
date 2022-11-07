@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from guide import views as g_views
+from homepage import views as hp_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("ref/", include('guide.urls', namespace='guide')),
+    path("", hp_view.HomePage.as_view(), name='home'),
 ]
