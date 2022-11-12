@@ -12,9 +12,9 @@
     <table class="table table-bordered border-primary">
     {% for obj in object_list %}
       <tr>
-        <td><a href= "{% url 'guide:update-author' pk=obj.pk %}"> {{obj.pk}} </a> </td>
-        <td>{{obj.surname}} {{obj.name}} {{obj.birthday}} {{obj.nation}}</td>
-        <td><a href= "{% url 'guide:delete-author' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
+        <td><a href= "{% url 'book:update-book' pk=obj.pk %}"> {{obj.pk}} </a> </td>
+        <td>{{obj.name}} {{object.author_book}} {{object.genre_book}} {{obj.quantity_available}}</td>
+        <td><a href= "{% url 'book:delete-book' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
       </tr> 
     {% endfor %}
     </table>        

@@ -6,12 +6,10 @@
 {% endblock title %}
 
 {% block body %}
+{% csrf_token %}
 <body>
     <h1>Информация об издательстве</h1>
     {{object.pk}}<br>
     {{object.name}}<br>
 
-        <form action="" method="post">
-            {% csrf_token %}
-    </form>
 {% endblock body %}

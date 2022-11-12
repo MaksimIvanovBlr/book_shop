@@ -10,7 +10,7 @@ class Genre(models.Model):
     )
     description = models.TextField(
         verbose_name='Описание',
-        max_length=100,
+        max_length=500,
         blank=True,
         null=True
     )
@@ -62,7 +62,7 @@ class Series(models.Model):
     )
     description = models.TextField(
         verbose_name='Описание',
-        max_length=100,
+        max_length=500,
         blank=True,
         null=True
     )

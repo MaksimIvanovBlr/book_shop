@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
 
-import datetime
 from . import models, forms
 
 # авторы:

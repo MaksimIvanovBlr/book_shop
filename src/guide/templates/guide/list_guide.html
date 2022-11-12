@@ -13,7 +13,7 @@
       <tr>
         <td><a href= '{% url update pk=obj.pk %}'> {{obj.pk}} </a> </td>
         <td> {{obj.name}}</td>
-        <td><a href="{% url delete pk=obj.pk%}" class="btn btn-danger"><i class="bi bi-x-circle"></i></a></td>
+        <td><a href="{% url delete pk=obj.pk%}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
       </tr> 
     {% endfor %}
     </table>        
