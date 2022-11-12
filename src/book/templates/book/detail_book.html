@@ -2,16 +2,29 @@
 
 
 {% block title %}
-Информация об авторе
+Информация о книге
 {% endblock title %}
 
 {% block body %}
 {% csrf_token %}
-    <h1>Информация об авторе</h1>
+    <h1>Информация о книге</h1>
     {{object.pk}}<br>
+    {{object.cover}}<br>
     {{object.name}}<br>
-    {{object.surname}}<br>
-    {{object.birthday}}<br>
-    {{object.nation}}<br>
+    {{object.author_book}}<br>
+    {{object.genre_book}}<br>
+    {{object.series_book}}<br>
+    {{object.publishing_book}}<br>
+    {{object.add_to_catalog}}<br>
+    {{object.quantity_available}}<br>
+    {{object.weight}}<br>
+    {{object.quantity_of_pages}}<br>
+    {{object.binding}}<br>
+    {{object.book_format}}<br>
+    {{object.year_of_publication}}<br>
+    {{object.isbn}}<br>
+    {{object.age_restrictions}}<br>
+    {{object.rating}}<br>
+    {{object.availability}}<br>
 
 {% endblock body %}

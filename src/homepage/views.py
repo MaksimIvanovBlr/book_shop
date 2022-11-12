@@ -10,5 +10,5 @@ class HomePage(generic.TemplateView):
     template_name = 'homepage/homepage.html'
     def get_context_data(self,*args, **kwargs):
         context = super().get_context_data(*args,**kwargs)
-        context['book'] = 'cdf'
+        context['book'] = models.Book.objects.get(pk=1)
         return context    
