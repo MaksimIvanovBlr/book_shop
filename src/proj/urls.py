@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from guide import views as g_views
 from homepage import views as hp_view
-
+from adminpannel import views as ap_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,7 +25,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("ref/", include('guide.urls', namespace='guide')),
     path("", hp_view.HomePage.as_view(), name='home'),
-    path("book/", include('book.urls', namespace='book'))
+    path("book/", include('book.urls', namespace='book')),
+    path("adminportal/", ap_view.AdminPannel.as_view(), name="adminpannel"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

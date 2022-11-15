@@ -8,23 +8,25 @@
 {% block body %}
 {% csrf_token %}
     <h1>Информация о книге</h1>
-    {{object.pk}}<br>
-    {{object.cover}}<br>
-    {{object.name}}<br>
-    {{object.author_book}}<br>
-    {{object.genre_book}}<br>
-    {{object.series_book}}<br>
-    {{object.publishing_book}}<br>
-    {{object.add_to_catalog}}<br>
-    {{object.quantity_available}}<br>
-    {{object.weight}}<br>
-    {{object.quantity_of_pages}}<br>
-    {{object.binding}}<br>
-    {{object.book_format}}<br>
-    {{object.year_of_publication}}<br>
-    {{object.isbn}}<br>
-    {{object.age_restrictions}}<br>
-    {{object.rating}}<br>
-    {{object.availability}}<br>
-
+   
+   <img src="{{ book.cover.url }}" >
+   <div>
+   ID книги: {{object.pk}}<br>
+   Название: {{object.name}}<br>
+   Автор: {{object.author_book}}<br>
+   Жанр: {{object.genre_book}}<br>
+   Серия: {{object.series_book}}<br>
+   Издательство: {{object.publishing_book}}<br>
+   Дата добавления: {{object.add_to_catalog}}<br>
+   Количество в наличии: {{object.quantity_available}}<br>
+   Вес книги: {{object.weight}}<br>
+   Количество старниц: {{object.quantity_of_pages}}<br>
+   Переплет {{object.binding}}<br>
+   Формат: {{object.book_format}}<br>
+   Год издательства: {{object.year_of_publication}}<br>
+   ISBN: {{object.isbn}}<br>
+   Возрастные ограниччения: {{object.age_restrictions}}<br>
+   Рейтинг: {{object.rating}}<br>
+   Доступен к заказу: {{object.availability}}<br>
+</div>
 {% endblock body %}

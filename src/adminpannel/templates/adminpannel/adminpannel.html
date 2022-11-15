@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Редактирование
+{% endblock title %}
+
+{% block body %}
+{% csrf_token %}
+    <h1>!</h1>
+    <table class="table table-bordered border-primary">
+
+      <tr>
+        <td>Редактирование </td>
+        <td> Добавление </td>
+      </tr>    
+    <tr>
+      <td><a href= "{% url 'book:list-book' %}"> Книги </a> </td>
+      <td><a href= "{% url 'book:list-book' %}"> Добавить кингу </a> </td>
+    </tr> 
+
+    <tr>
+      <td><a href= "{% url 'guide:list-author' %}"> Авторы </a> </td>
+      <td><a href= "{% url 'guide:list-author' %}"> Добваить автора </a> </td>
+    </tr> 
+    <tr>
+      <td><a href= "{% url 'guide:list-series' %}"> Серии книг </a> </td>
+      <td><a href= "{% url 'guide:list-series' %}"> Добваить серию </a> </td>
+    </tr> 
+    <tr>
+      <td><a href= "{% url 'guide:list-genre' %}"> Жанры </a> </td>
+      <td><a href= "{% url 'guide:list-genre' %}"> Добавить жанр </a> </td>
+    </tr> 
+    <tr>
+      <td><a href= "{% url 'guide:list-publishing' %}"> Издательства </a> </td>
+      <td><a href= "{% url 'guide:list-publishing' %}"> Добавить издательство </a> </td>
+    </tr>
+
+  </table>
+{% endblock body %}
