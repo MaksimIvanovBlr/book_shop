@@ -45,22 +45,26 @@ class Book(models.Model):
     author_book = models.ForeignKey(
         'guide.Author',
         verbose_name='Автор',
-        on_delete=models.PROTECT 
+        on_delete=models.PROTECT,
+        related_name= 'authorbook' 
     )
     series_book = models.ForeignKey(
         'guide.Series',
         verbose_name='Серия',
-        on_delete=models.PROTECT 
+        on_delete=models.PROTECT,
+        related_name= 'seriesbook' 
     )
     genre_book = models.ForeignKey(
         'guide.Genre',
         verbose_name='Жанр',
-        on_delete=models.PROTECT 
+        on_delete=models.PROTECT,
+        related_name= 'genrebook' 
     )
     publishing_book = models.ForeignKey(
         'guide.Publishing',
         verbose_name='Издательство',
-        on_delete=models.PROTECT 
+        on_delete=models.PROTECT,
+        related_name= 'publishingbook' 
     )
 
     price = models.DecimalField(
@@ -142,7 +146,7 @@ class Book(models.Model):
 
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name}, {self.pk}'
 
     def get_absolute_url(self):
         return reverse_lazy('book:detail-book', kwargs ={'pk':self.pk}) 

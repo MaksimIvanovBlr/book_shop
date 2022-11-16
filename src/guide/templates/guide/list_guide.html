@@ -11,9 +11,13 @@
     <table class= "table table-bordered border-primary">
     {% for obj in object_list %}
       <tr>
+        {% if user.is_staff %}
         <td><a href= '{% url update pk=obj.pk %}'> {{obj.pk}} </a> </td>
-        <td> {{obj.name}}</td>
+        {% endif %}
+        <td><a href= '{% url detail pk=obj.pk %}'> {{obj.name}} </a></td>
+        {% if user.is_staff %}
         <td><a href="{% url delete pk=obj.pk%}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
+        {% endif %}
       </tr> 
     {% endfor %}
     </table>        

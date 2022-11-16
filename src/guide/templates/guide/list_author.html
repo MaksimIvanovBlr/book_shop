@@ -12,9 +12,13 @@
     <table class="table table-bordered border-primary">
     {% for obj in object_list %}
       <tr>
+        {% if user.is_staff %}
         <td><a href= "{% url 'guide:update-author' pk=obj.pk %}"> {{obj.pk}} </a> </td>
-        <td>{{obj.surname}} {{obj.name}} {{obj.birthday}} {{obj.nation}}</td>
+        {% endif %}
+        <td><a href= "{% url 'guide:detail-author' pk=obj.pk %}">{{obj.surname}} {{obj.name}} {{obj.birthday}} {{obj.nation}}</a></td>
+        {% if user.is_staff %}
         <td><a href= "{% url 'guide:delete-author' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
+        {% endif %}
       </tr> 
     {% endfor %}
     </table>        

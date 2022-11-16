@@ -2,19 +2,23 @@
 
 
 {% block title %}
-Список авторов
+Список книг
 {% endblock title %}
 
 {% block body %}
 
 
-    <h1>Список авторов</h1>
+    <h1>Список книг</h1>
     <table class="table table-bordered border-primary">
     {% for obj in object_list %}
       <tr>
+       {% if user.is_staff %}
         <td><a href= "{% url 'book:update-book' pk=obj.pk %}"> {{obj.pk}} </a> </td>
-        <td>{{obj.name}} {{object.author_book}} {{object.genre_book}} {{obj.quantity_available}}</td>
+      {% endif %}  
+        <td><a href= "{% url 'book:detail-book' pk=obj.pk %}">{{obj.name}} {{object.author_book}} {{object.genre_book}} {{obj.quantity_available}}</a></td>
+      {% if user.is_staff %} 
         <td><a href= "{% url 'book:delete-book' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
+      {% endif %} 
       </tr> 
     {% endfor %}
     </table>        

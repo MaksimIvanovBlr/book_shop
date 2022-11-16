@@ -13,20 +13,19 @@
    <div>
    ID книги: {{object.pk}}<br>
    Название: {{object.name}}<br>
-   Автор: {{object.author_book}}<br>
-   Жанр: {{object.genre_book}}<br>
-   Серия: {{object.series_book}}<br>
-   Издательство: {{object.publishing_book}}<br>
+   <a href="{% url 'guide:detail-author' pk=object.author_book.pk %}" >Автор: {{object.author_book}}<br> </a> 
+   <a href="{% url 'guide:detail-genre' pk=object.genre_book.pk %}">  Жанр: {{object.genre_book}}</a><br>
+   <a href="{% url 'guide:detail-series' pk=object.series_book.pk %}"> Серия: {{object.series_book}}</a> <br>
+   <a href="{% url 'guide:detail-publishing' pk=object.publishing_book.pk %}"> Издательство: {{object.publishing_book}}</a> <br>
    Дата добавления: {{object.add_to_catalog}}<br>
    Количество в наличии: {{object.quantity_available}}<br>
    Вес книги: {{object.weight}}<br>
-   Количество старниц: {{object.quantity_of_pages}}<br>
+   Количество страниц: {{object.quantity_of_pages}}<br>
    Переплет {{object.binding}}<br>
    Формат: {{object.book_format}}<br>
    Год издательства: {{object.year_of_publication}}<br>
    ISBN: {{object.isbn}}<br>
    Возрастные ограниччения: {{object.age_restrictions}}<br>
    Рейтинг: {{object.rating}}<br>
-   Доступен к заказу: {{object.availability}}<br>
 </div>
 {% endblock body %}

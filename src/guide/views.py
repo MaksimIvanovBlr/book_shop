@@ -3,14 +3,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from . import models, forms
 
 # авторы:
 
-class AddAuthor(generic.CreateView):
+class AddAuthor(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     model = models.Author
     form_class = forms.AuthorForm
+    permission_required = 'guide.add_author'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-author')
     def get_context_data(self,*args, **kwargs):
@@ -21,10 +24,12 @@ class AddAuthor(generic.CreateView):
 class DetailAuthor(generic.DetailView):
     model = models.Author
     template_name = 'guide/detail_author.html'
-
-class UpdateAuthor(generic.UpdateView):
+  
+class UpdateAuthor(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Author
     form_class = forms.AuthorForm
+    permission_required = 'guide.add_author'
+    login_url = reverse_lazy('login')
     success_url = reverse_lazy('guide:list-author')
     template_name = 'guide/edit_guide.html'
     def get_context_data(self,*args, **kwargs):
@@ -32,8 +37,10 @@ class UpdateAuthor(generic.UpdateView):
         context['operation'] = 'Редактировать данные автора'
         return context
 
-class DeleteAuthor(generic.DeleteView):
+class DeleteAuthor(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = models.Author
+    login_url = reverse_lazy('login')
+    permission_required = 'guide.add_author'
     template_name = 'guide/delete_guide.html'
     success_url = reverse_lazy('guide:list-author')
     def get_context_data(self,*args, **kwargs):
@@ -49,9 +56,11 @@ class ListAuthor(generic.ListView):
 
 # жанры:
 
-class AddGenre(generic.CreateView):
+class AddGenre(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     model = models.Genre
     form_class = forms.GenreForm
+    permission_required = 'guide.add_genre'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-genre')
     def get_context_data(self,*args, **kwargs):
@@ -67,9 +76,11 @@ class DetailGenre(generic.DetailView):
         context['operation'] = 'Описание жанра'
         return context    
 
-class UpdateGenre(generic.UpdateView):
+class UpdateGenre(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Genre
     form_class = forms.GenreForm
+    permission_required = 'guide.add_genre'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-genre')
     def get_context_data(self,*args, **kwargs):
@@ -77,8 +88,10 @@ class UpdateGenre(generic.UpdateView):
         context['operation'] = 'Редактировать жанр'
         return context     
 
-class DeleteGenre(generic.DeleteView):
+class DeleteGenre(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = models.Genre
+    permission_required = 'guide.add_genre'
+    login_url = reverse_lazy('login')
     template_name = 'guide/delete_guide.html'
     success_url = reverse_lazy('guide:list-genre')
     def get_context_data(self,*args, **kwargs):
@@ -96,13 +109,16 @@ class ListGenre(generic.ListView):
         context['operation'] = 'Жанры'
         context['update'] = 'guide:update-genre'
         context['delete'] = 'guide:delete-genre'
+        context['detail'] = 'guide:detail-genre'
         return context  
 
 # серии
 
-class AddSeries(generic.CreateView):
+class AddSeries(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     model = models.Series
     form_class = forms.SeriesForm
+    permission_required = 'guide.add_series'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-series')
     def get_context_data(self,*args, **kwargs):
@@ -118,9 +134,11 @@ class DetailSeries(generic.DetailView):
         context['operation'] = 'Данные о серии'
         return context    
 
-class UpdateSeries(generic.UpdateView):
+class UpdateSeries(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Series
     form_class = forms.SeriesForm
+    permission_required = 'guide.add_series'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-series')
     def get_context_data(self,*args, **kwargs):
@@ -128,8 +146,10 @@ class UpdateSeries(generic.UpdateView):
         context['operation'] = 'Редактировать серию'
         return context     
 
-class DeleteSeries(generic.DeleteView):
+class DeleteSeries(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = models.Series
+    permission_required = 'guide.add_series'
+    login_url = reverse_lazy('login')
     template_name = 'guide/delete_guide.html'
     success_url = reverse_lazy('guide:list-series')
     def get_context_data(self,*args, **kwargs):
@@ -146,14 +166,17 @@ class ListSeries(generic.ListView):
         context['operation'] = 'Серии'
         context['update'] = 'guide:update-series'
         context['delete'] = 'guide:delete-series'
+        context['detail'] = 'guide:detail-series'
         return context  
 
 
 # издательство
 
-class AddPublishing(generic.CreateView):
+class AddPublishing(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     model = models.Publishing
     form_class = forms.PublishingForm
+    permission_required = 'guide.add_publishing'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-publishing')
     def get_context_data(self,*args, **kwargs):
@@ -165,9 +188,11 @@ class DetailPublishing(generic.DetailView):
     model = models.Publishing
     template_name = 'guide/detail_publishing.html'
 
-class UpdatePublishing(generic.UpdateView):
+class UpdatePublishing(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Publishing
     form_class = forms.PublishingForm
+    permission_required = 'guide.add_publishing'
+    login_url = reverse_lazy('login')
     template_name = 'guide/edit_guide.html'
     success_url = reverse_lazy('guide:list-publishing')
     def get_context_data(self,*args, **kwargs):
@@ -175,8 +200,10 @@ class UpdatePublishing(generic.UpdateView):
         context['operation'] = 'Редактировать издательство'
         return context     
 
-class DeletePublishing(generic.DeleteView):
+class DeletePublishing(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = models.Publishing
+    permission_required = 'guide.add_publishing'
+    login_url = reverse_lazy('login')
     template_name = 'guide/delete_guide.html'
     success_url = reverse_lazy('guide:list-publishing')
     def get_context_data(self,*args, **kwargs):
@@ -193,4 +220,5 @@ class ListPublishing(generic.ListView):
         context['operation'] = 'Издательства'
         context['update'] = 'guide:update-publishing'
         context['delete'] = 'guide:delete-publishing'
+        context['detail'] = 'guide:detail-publishing'
         return context  
