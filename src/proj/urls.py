@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from guide import views as g_views
-from homepage import views as hp_view
 from adminpannel import views as ap_view
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,9 +23,10 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", auth_views.LoginView.as_view(template_name = 'adminpannel/login.html'), name='login'),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("ref/", include('guide.urls', namespace='guide')),
-    path("", hp_view.HomePage.as_view(), name='home'),
     path("book/", include('book.urls', namespace='book')),
+    path("", include('homepage.urls', namespace='homepage')),
     path("s-admin/", ap_view.AdminPannel.as_view(), name="adminpannel"),
 ]
 if settings.DEBUG:

@@ -15,7 +15,8 @@
         <div class="card-body">
           <h5 class="card-title">Название:{{books.name}}</h5>
           <p class="card-text">Автор: {{books.author_book}}</p>
-          <p class="card-text">Цена: {{books.price}}</p>
+          <p class="card-text">Жанр: {{books.genre_book}}</p>
+          <p class="card-text">Цена: {{books.price}} BYN</p>
           <p class="card-text">Рейтинг: {{books.rating}}</p>
           <a href="{% url 'book:detail-book' pk=books.pk %}" class="btn btn-primary">Подробнее</a>
         </div>

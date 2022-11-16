@@ -19,7 +19,7 @@
    <a href="{% url 'guide:detail-publishing' pk=object.publishing_book.pk %}"> Издательство: {{object.publishing_book}}</a> <br>
    Дата добавления: {{object.add_to_catalog}}<br>
    Количество в наличии: {{object.quantity_available}}<br>
-   Вес книги: {{object.weight}}<br>
+   Вес книги: {{object.weight}} гр.<br>
    Количество страниц: {{object.quantity_of_pages}}<br>
    Переплет {{object.binding}}<br>
    Формат: {{object.book_format}}<br>
@@ -27,5 +27,6 @@
    ISBN: {{object.isbn}}<br>
    Возрастные ограниччения: {{object.age_restrictions}}<br>
    Рейтинг: {{object.rating}}<br>
+   Цена: {{object.price}} BYN<br>
 </div>
 {% endblock body %}
