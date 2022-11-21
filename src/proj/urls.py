@@ -28,6 +28,7 @@ urlpatterns = [
     path("book/", include('book.urls', namespace='book')),
     path("", include('homepage.urls', namespace='homepage')),
     path("s-admin/", ap_view.AdminPannel.as_view(), name="adminpannel"),
+    path("order", include('order.urls', namespace='order')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

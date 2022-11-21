@@ -16,7 +16,23 @@
         <td><a href= "{% url 'book:update-book' pk=obj.pk %}"> {{obj.pk}} </a> </td>
       {% endif %}  
         <td><a href= "{% url 'book:detail-book' pk=obj.pk %}">{{obj.name}} {{object.author_book}} {{object.genre_book}} {{obj.quantity_available}}</a></td>
-      {% if user.is_staff %} 
+
+
+
+      {% if not user.is_staff %}
+
+      <form action="{% url 'order:cart' %}" method="post">
+        {% csrf_token %}
+        <td> <button type="submit" class="btn btn-success">Добавить в корзину</button></td>
+        <td>Количество:<input type="number" name="quantity" value="1" min="1"></td>
+        <input type="hidden" name="book_pk" value="{{obj.pk}}">
+
+    </form>
+      {% endif %}
+
+
+      
+        {% if user.is_staff %} 
         <td><a href= "{% url 'book:delete-book' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
       {% endif %} 
       </tr> 

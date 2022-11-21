@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "homepage",
     "book",
     "adminpannel",
+    "order",
     
 ]
 
@@ -132,8 +133,8 @@ STATIC_ROOT = "/home/MaksimIvanovBlr/static"
 
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = "/home/MaksimIvanovBlr/media"
-# MEDIA_ROOT = BASE_DIR/"media"
+# MEDIA_ROOT = "/home/MaksimIvanovBlr/media"
+MEDIA_ROOT = BASE_DIR/"media"
 
 
 
@@ -146,4 +147,4 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/login"
