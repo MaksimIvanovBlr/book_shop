@@ -19,6 +19,13 @@
           <p class="card-text">Цена: {{books.price}} BYN</p>
           <p class="card-text">Рейтинг: {{books.rating}}</p>
           <a href="{% url 'book:detail-book' pk=books.pk %}" class="btn btn-primary">Подробнее</a>
+          <p></p>
+          <form action="{% url 'order:cart' %}" method="post">
+            {% csrf_token %}
+            <p><button type="submit" class="btn btn-success">Добавить в корзину</button></p>
+            <p>Количество:<input type="number" name="quantity" value="1" min="1"></p>
+            <input type="hidden" name="book_pk" value="{{books.pk}}">    
+        </form>
         </div>
       </div>
  {% endfor %}
