@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Заказы
+{% endblock title %}
+
+{% block body %}
+
+
+    <h1>Список Заказов</h1>
+    <table class="table table-bordered border-primary">
+    {% if user.is_staff %}
+      <tr>
+        <td>Изменить данные </td>
+        <td> Данные заказа </td>
+        <td> Статус </td>
+        <td> Покупатель </td>
+        <td> дата создания </td>
+        <td> Дата редактирования </td>
+        <td> Удаление </td>
+      </tr>
+    {% for obj in object_list %}
+
+
+      <tr>
+
+        <td><a href= "{% url 'order:update-order' pk=obj.pk %}"> {{obj.pk}} </a> </td>  
+        <td><a href= "{% url 'order:detail-order' pk=obj.pk %}">{{obj.cart}} </a></td> 
+        <td> {{obj.status}} </td>
+        <td> {{obj.name}} </td>
+        <td>{{obj.created_date}} </td>
+        <td>{{obj.updated_date}}</td>
+        <td><a href= "{% url 'order:delete-order' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td> 
+      </tr> 
+
+    {% endfor %}
+    {% endif %}
+    </table>        
+    {% endblock body %}

@@ -14,5 +14,8 @@
     {{object.author_book}}<br>
     {{object.genre_book}}<br>
     {{object.price}}<br>            
-        <input type="submit" class="btn btn-danger" value="Да">
+    <form method = 'post'>
+        {%csrf_token%}           
+        <button type="submit" class="btn btn-danger">ДА</button>
+    </form>
 {% endblock body %}

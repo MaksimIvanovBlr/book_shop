@@ -11,3 +11,5 @@ class BookInCartAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Cart, CartAdmin)
 admin.site.register(models.BookInCart, BookInCartAdmin)
+admin.site.register(models.Statuses)
+admin.site.register(models.Order)

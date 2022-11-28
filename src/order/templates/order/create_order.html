@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block title %}
-Корзина
+Oформление заказа
 {% endblock title %}
 
 {% block body %}
 
-<h1>Корзина</h1>
-<table class = 'table'>
+<h1>Оформление заказа</h1>
+{% comment %} <table class = 'table'>
 <tr>
     <td>Название</td>
     <td>Количество</td>
@@ -32,9 +32,12 @@
     <td colspan="2"></td>
     <td>{{cart.total_price}}</td>
     <td></td>
-</tr> 
-</table>
- <h2>
-    <a href="{% url 'order:make-an-order' %}" class="btn btn-success">Оформить заказ</a>
- </h2>
+</tr>  {% endcomment %}
+<form action="{% url 'order:make-an-order' %}" method="post">
+  {% csrf_token %}
+  {{form |crispy}}
+  <button type="submit" class="btn btn-success">Заказать</button>
+</form>
+
+
 {% endblock body %}

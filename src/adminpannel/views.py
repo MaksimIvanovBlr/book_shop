@@ -10,3 +10,10 @@ class AdminPannel(PermissionRequiredMixin ,LoginRequiredMixin, generic.TemplateV
     template_name = 'adminpannel/adminpannel.html'
     permission_required = ('book.change_book', 'auth.change_user')
     login_url = reverse_lazy('login')
+
+
+class AdminPannelBook(PermissionRequiredMixin ,LoginRequiredMixin, generic.TemplateView):
+    template_name = 'adminpannel/book.html'
+    permission_required = ('book.change_book', 'auth.change_user')
+    login_url = reverse_lazy('login')
+

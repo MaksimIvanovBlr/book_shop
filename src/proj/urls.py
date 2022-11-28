@@ -21,14 +21,14 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("s-admin/", admin.site.urls),
     path("login/", auth_views.LoginView.as_view(template_name = 'adminpannel/login.html'), name='login'),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("ref/", include('guide.urls', namespace='guide')),
     path("book/", include('book.urls', namespace='book')),
     path("", include('homepage.urls', namespace='homepage')),
-    path("s-admin/", ap_view.AdminPannel.as_view(), name="adminpannel"),
-    path("order", include('order.urls', namespace='order')),
+    path("adminportal/", include('adminpannel.urls', namespace='adminportal')),
+    path("order/", include('order.urls', namespace='order')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

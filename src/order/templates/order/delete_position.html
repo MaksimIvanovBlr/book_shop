@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Удаление товара из корзины
+{% endblock title %}
+
+
+{% block body %}
+
+    <h1>Удаление товара из корзины</h1>
+    <h2>Вы действительно хотите удалить данную книгу из корзины?</h2>
+    {{object.book}}<br>
+    {{object.quantity}}<br>
+    {{object.price}}<br>
+    {{object.price_per_position}}<br> 
+    <form method = 'post'>
+        {%csrf_token%}           
+        <button type="submit" class="btn btn-danger">ДА</button>
+    </form>
+{% endblock body %}

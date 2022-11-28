@@ -53,7 +53,6 @@ class Author(models.Model):
         return reverse_lazy('detail-author', kwargs ={'pk':self.pk})
     
 
-
 class Series(models.Model):
     """серия книг"""
     name = models.CharField(

@@ -146,7 +146,7 @@ class Book(models.Model):
 
 
     def __str__(self):
-        return f'{self.name}, {self.pk}'
+        return f'{self.name}'
 
     def get_absolute_url(self):
         return reverse_lazy('book:detail-book', kwargs ={'pk':self.pk}) 

@@ -2,39 +2,23 @@
 
 
 {% block title %}
-Редактирование
+Портал администраторов
 {% endblock title %}
 
 {% block body %}
-{% csrf_token %}
-    <h1>!</h1>
-    <table class="table table-bordered border-primary">
-
-      <tr>
-        <td>Редактирование </td>
-        <td> Добавление </td>
-      </tr>    
-    <tr>
-      <td><a href= "{% url 'book:list-book' %}"> Книги </a> </td>
-      <td><a href= "{% url 'book:add-book' %}"> Добавить кингу </a> </td>
-    </tr> 
-
-    <tr>
-      <td><a href= "{% url 'guide:list-author' %}"> Авторы </a> </td>
-      <td><a href= "{% url 'guide:add-author' %}"> Добавить автора </a> </td>
-    </tr> 
-    <tr>
-      <td><a href= "{% url 'guide:list-series' %}"> Серии книг </a> </td>
-      <td><a href= "{% url 'guide:add-series' %}"> Добавить серию </a> </td>
-    </tr> 
-    <tr>
-      <td><a href= "{% url 'guide:list-genre' %}"> Жанры </a> </td>
-      <td><a href= "{% url 'guide:add-genre' %}"> Добавить жанр </a> </td>
-    </tr> 
-    <tr>
-      <td><a href= "{% url 'guide:list-publishing' %}"> Издательства </a> </td>
-      <td><a href= "{% url 'guide:add-publishing' %}"> Добавить издательство </a> </td>
-    </tr>
-
-  </table>
+{% comment %} {% csrf_token %} {% endcomment %}
+<p align="right">
+    login пользователя: {{user}} <br>
+    id пользователя: {{user.pk}}<br> 
+    Имя: {{user.first_name|default:'не указано'}}<br>
+    Фамилия: {{user.last_name|default:'не указано'}} <br>
+    email: {{ user.email|default:'не указан' }}<br>
+</p>
+<h1 align="right">
+<p  class="btn btn-warning"> <a href= "{% url 'adminportal:book' %}" > Книги, справочники </a></p><br>
+<p  class="btn btn-warning"> <a href= "{% url 'book:list-book' %}"> Пользователи </a></p><br>
+<p  class="btn btn-warning"> <a href= "{% url 'order:list-order' %}"> Заказы </a></p><br>
+<p  class="btn btn-warning"> <a href= "{% url 'book:list-book' %}"> Загрузить список книг из формата СSV </a></p><br>
+<p  class="btn btn-warning"> <a href= "{% url 'book:list-book' %}"> ?! </a></p><br>
+</h1>
 {% endblock body %}

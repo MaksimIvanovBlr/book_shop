@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Информация о книге
+{% endblock title %}
+
+{% block body %}
+{% csrf_token %}
+    <h1>Информация о книге</h1>
+   
+   <div>
+   ID заказа: {{object.pk}}<br>
+   № корзины: {{object.cart}}<br>
+   {% comment %} <a href="{% url 'guide:detail-author' pk=object.author_book.pk %}" >Автор: {{object.author_book}}<br> </a> 
+   <a href="{% url 'guide:detail-genre' pk=object.genre_book.pk %}">  Жанр: {{object.genre_book}}</a><br>
+   <a href="{% url 'guide:detail-series' pk=object.series_book.pk %}"> Серия: {{object.series_book}}</a> <br>
+   <a href="{% url 'guide:detail-publishing' pk=object.publishing_book.pk %}"> Издательство: {{object.publishing_book}}</a> <br> {% endcomment %}
+   Статус: {{object.status}}<br>
+   Имя покупателя: {{object.name}}<br>
+   Номер телефона: {{object.telefon_number}}<br>
+   Адрес доставки: {{object.adress}}<br>
+   email: {{object.email_adress}}<br>
+   Дата оформления заказа: {{object.created_date}}<br>
+   Дата последнего изменения заказа: {{object.updated_date}}<br>
+   Дополнительная информация: {{object.additional_information}}<br>
+</div>
+{% endblock body %}

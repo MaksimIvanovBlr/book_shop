@@ -12,5 +12,8 @@
     {{object.pk}}<br>
     {{object.name}}<br>
     {{object.surname}}<br>            
-        <input type="submit" class="btn btn-danger" value="Да">
+    <form method = 'post'>
+        {%csrf_token%}           
+        <button type="submit" class="btn btn-danger">ДА</button>
+    </form>
 {% endblock body %}
