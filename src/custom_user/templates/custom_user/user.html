@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Корзина
+{% endblock title %}
+
+{% block body %}
+
+<h1>Корзина</h1>
+<table class = 'table'>
+<tr>
+    <td>Название</td>
+    <td>Количество</td>
+    <td>Цена за книгу</td>
+    <td>Цена за позицию</td>
+    <td>Удалить</td>
+</tr>    
+{% for book_cart in cart.cart.all  %}
+<tr>   
+  <td>{{book_cart.book}}</td>
+  <td>{{book_cart.quantity}}</td>
+  <td>{{book_cart.price}}</td>
+  <td>{{book_cart.price_per_position}}</td>
+  <td>
+    <a href="{% url 'order:delete-position' book_cart.pk %}" class="btn btn-danger">Удалить</a>
+  </td> 
+</tr>
+{% endfor %}
+<tr>
+    <td>Итого</td>
+    <td colspan="2"></td>
+    <td>{{cart.total_price}}</td>
+    <td></td>
+</tr> 
+</table>
+ <h2>
+    <a href="{% url 'order:make-an-order' %}" class="btn btn-success">Оформить заказ</a>
+ </h2>
+{% endblock body %}

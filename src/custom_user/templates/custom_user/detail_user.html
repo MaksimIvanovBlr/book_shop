@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Информация о пользователе
+{% endblock title %}
+
+{% block body %}
+
+
+    <h1>Информация о пользователе</h1>
+   
+   <div>
+    ID: {{object.pk}}<br> 
+    Login: {{object.username}} <br>
+    Имя и фамилия: {{object.first_name|default:'не указано'}} {{obj.last_name}}<br>
+    email: {{object.email|default:'не указано'}} <br>
+    телефон: {{object.extenduser.phone|default:'не указано'}} <br>
+    страна: {{object.extenduser.country|default:'не указано'}}<br> 
+    город: {{object.extenduser.city|default:'не указано'}}<br>
+    индекс: {{object.extenduser.index|default:'не указано'}}<br>
+    адрес: {{object.extenduser.adress1|default:'не указано'}}<br>
+    дополнительный адрес: {{object.extenduser.adress2|default:'не указано'}}<br>
+    дополнительная информация: {{object.extenduser.information|default:'не указано'}}<br>
+</div>
+<div>
+    <h3><a href= '{% url "custom_user:update-user" pk=object.pk %}' class="btn btn-success"> Редактировать данные</a></h3>
+    <h3><a href= '{% url "custom_user:update-extenduser" pk=object.pk %}' class="btn btn-success"> Редактировать расширенные данные</a></h3>
+</div>
+{% endblock body %}

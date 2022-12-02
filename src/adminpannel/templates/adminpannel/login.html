@@ -27,11 +27,12 @@
     <td>{{ form.password }}</td>
 </tr>
 </table>
-
+<p  class="btn btn-warning">
 <input type="submit" value="Войти">
 <input type="hidden" name="next" value="{{ next }}">
+</p>
 </form>
-
+<p  class="btn btn-warning"> <a href= "{% url 'custom_user:registration' %}" > Зарегистрироваться </a></p><br>
 {# Assumes you set up the password_reset view in your URLconf #}
 {% comment %} <p><a href="{% url 'password_reset' %}">Lost password?</a></p> {% endcomment %}
 

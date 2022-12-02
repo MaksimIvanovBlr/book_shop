@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Редактировать профиль
+{% endblock title %}
+
+{% block body %}
+    <h1>Редактировать профиль</h1>
+    <h3><a href= '{% url "custom_user:update-extenduser" pk=object.pk %}' class="btn btn-success"> Редактировать расширенные данные</a></h3>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form |crispy}}
+        <input type="submit" class="btn btn-success" value="Ok">
+        </form>
+       
+{% endblock body %}

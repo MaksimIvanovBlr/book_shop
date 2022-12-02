@@ -29,6 +29,7 @@ urlpatterns = [
     path("", include('homepage.urls', namespace='homepage')),
     path("adminportal/", include('adminpannel.urls', namespace='adminportal')),
     path("order/", include('order.urls', namespace='order')),
+    path("", include('custom_user.urls', namespace='custom_user')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Список пользователей
+{% endblock title %}
+
+{% block body %}
+
+
+    <h1>Список пользователей</h1>
+    <table class="table table-bordered border-primary">
+    {% if user.is_staff %}
+  
+ <tr>
+        <td>ID </td>
+        <td> login </td>
+        <td> Имя и Фамилимя </td>
+        <td> email </td>
+        <td> телефон </td>
+        <td> Страна </td>
+        <td> Город </td>
+        <td> Индекс </td>
+        <td> Адрес </td>
+        <td> Дополнительный адрес </td>
+        <td> Дополнительная информация </td>
+        <td> Изменить </td>
+        <td> Удалить </td>
+      </tr> 
+    {% for obj in object_list %}
+
+
+      <tr>
+        <td> <a href= "{% url 'custom_user:detail-user' pk=obj.pk %}">{{obj.pk}} </a></td>
+        <td> {{obj.username}} </td>
+        <td> {{obj.first_name|default:'не указано'}} {{obj.last_name}}</td>
+        <td> {{obj.email|default:'не указано'}} </td>
+        <td> {{obj.extenduser.phone|default:'не указано'}} </td>
+        <td>{{obj.extenduser.country|default:'не указано'}} </td>
+        <td>{{obj.extenduser.city|default:'не указано'}}</td>
+        <td>{{obj.extenduser.index|default:'не указано'}}</td>
+        <td>{{obj.extenduser.adress1|default:'не указано'}}</td>
+        <td>{{obj.extenduser.adress2|default:'не указано'}}</td>
+        <td>{{obj.extenduser.information|default:'не указано'}}</td>
+
+        <td><a href= "{% url 'custom_user:update-user' pk=obj.pk %}" class="btn btn-warning"> Изменить данные</a> </td>   
+        <td><a href= "{% url 'custom_user:delete-user' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td> 
+      </tr>
+
+    {% endfor %}
+    {% endif %}
+    </table>        
+    {% endblock body %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Удаление пользователя
+{% endblock title %}
+
+{% block body %}
+    <h1>Удаление пользователя</h1>
+    <h2>Выточно хотите удалить данного пользователя?</h2>
+    ID: {{object.pk}}<br> 
+    Login: {{object.username}} <br>
+    Имя и фамилия: {{object.first_name|default:'не указано'}} {{obj.last_name}}<br>
+    email: {{object.email|default:'не указано'}} <br>
+    телефон: {{object.extenduser.phone|default:'не указано'}} <br>
+    страна: {{object.extenduser.country|default:'не указано'}}<br> 
+    город: {{object.extenduser.city|default:'не указано'}}<br>
+    индекс: {{object.extenduser.index|default:'не указано'}}<br>
+    адрес: {{object.extenduser.adress1|default:'не указано'}}<br>
+    дополнительный адрес: {{object.extenduser.adress2|default:'не указано'}}<br>
+    дополнительная информация: {{object.extenduser.information|default:'не указано'}}<br>
+         
+    <form method = 'post'>
+        {%csrf_token%}           
+        <button type="submit" class="btn btn-danger">ДА</button>
+    </form>
+{% endblock body %}
