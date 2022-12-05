@@ -11,7 +11,7 @@
     {% if user.is_staff %}
     Статус: персонал<br>
     {% else %}
-    Статус: клиент
+    Статус: клиент<br>
     {% endif %}
   
     Имя: {{user.first_name|default:'не указано'}}<br>
@@ -22,10 +22,9 @@
   {% if user.is_staff  %}
   <p  class="btn btn-warning"> <a href= "{% url 'adminportal:adminpannel' %}" > Портал администраторов </a></p><br>
   {% endif %}
-<p  class="btn btn-warning"> <a href= "{% url 'custom_user:detail-user' pk=pk %}" > Информация о профиле(там же и редактировать) </a></p><br>
-{% comment %} <p  class="btn btn-warning"> <a href= {{user_url}} > Информация о профиле(там же и редактировать) </a></p><br> {% endcomment %}
-{% comment %} <p  class="btn btn-warning"> <a href= "{% url 'custom_user:list-user' %}"> Мои заказы </a></p><br>
-
+<p  class="btn btn-warning"> <a href= "{% url 'custom_user:detail-user' pk=pk %}" > Информация о профиле/Редактировать  </a></p><br>
+<p  class="btn btn-warning"> <a href= "{% url 'order:list-order' %}"> Мои заказы </a></p><br>
+{% comment %} 
 <p  class="btn btn-warning"> <a href= "{% url 'order:list-order' %}"> Заказы </a></p><br>
 <p  class="btn btn-warning"> <a href= "{% url 'book:list-book' %}"> Загрузить список книг из формата СSV </a></p><br>
 <p  class="btn btn-warning"> <a href= "{% url 'book:list-book' %}"> ?! </a></p><br> {% endcomment %}

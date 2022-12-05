@@ -43,7 +43,8 @@
         <td>{{obj.extenduser.adress2|default:'не указано'}}</td>
         <td>{{obj.extenduser.information|default:'не указано'}}</td>
 
-        <td><a href= "{% url 'custom_user:update-user' pk=obj.pk %}" class="btn btn-warning"> Изменить данные</a> </td>   
+         
+          <td> <a href= "{% url 'custom_user:update-extenduser' pk=obj.extenduser.pk %}" class="btn btn-warning"> Расширенные данные</a></td>  
         <td><a href= "{% url 'custom_user:delete-user' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td> 
       </tr>
 

@@ -59,6 +59,10 @@ def cart_view(request):
         context=context
 
     )
+class UpdateBookInCart(generic.UpdateView):
+    model = models.BookInCart
+    template_name = 'guide/edit_guide.html'
+
 
 class DeletePosition(generic.DeleteView):
     model = models.BookInCart
@@ -74,8 +78,6 @@ class MakeAnOrder(generic.CreateView):
     def form_valid(self, form):
         cart = models.Cart.objects.get(pk=self.request.session.get('cart_id'))
         form.instance.cart = cart
-        # sta = models.Statuses.objects.get(pk = 1)
-        # form.instance.status = sta
         form.instance.status = models.Statuses.objects.get(pk=1)
         return super().form_valid(form)
 
@@ -102,6 +104,8 @@ class ListOrder(PermissionRequiredMixin, LoginRequiredMixin, generic.ListView):
     model = models.Order
     permission_required = ('book.change_book', 'auth.change_user')
     template_name = 'order/list_order.html'
+    def get_queryset(self):
+        return super(ListOrder, self).get_queryset().order_by('-updated_date')
 
 
 class DetailOrder(generic.DetailView):

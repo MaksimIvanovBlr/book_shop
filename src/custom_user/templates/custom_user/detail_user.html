@@ -13,6 +13,8 @@
    <div>
     ID: {{object.pk}}<br> 
     Login: {{object.username}} <br>
+    
+
     Имя и фамилия: {{object.first_name|default:'не указано'}} {{obj.last_name}}<br>
     email: {{object.email|default:'не указано'}} <br>
     телефон: {{object.extenduser.phone|default:'не указано'}} <br>
@@ -25,6 +27,6 @@
 </div>
 <div>
     <h3><a href= '{% url "custom_user:update-user" pk=object.pk %}' class="btn btn-success"> Редактировать данные</a></h3>
-    <h3><a href= '{% url "custom_user:update-extenduser" pk=object.pk %}' class="btn btn-success"> Редактировать расширенные данные</a></h3>
+    <h3><a href= '{% url "custom_user:update-extenduser" pk=object.extenduser.pk %}' class="btn btn-success"> Редактировать расширенные данные</a></h3>
 </div>
 {% endblock body %}

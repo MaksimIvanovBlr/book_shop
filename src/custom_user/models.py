@@ -14,7 +14,7 @@ class ExtendUser(models.Model):
 
     phone = models.CharField(
         max_length=17,
-        verbose_name='Номер телефона'
+        verbose_name='Номер телефона',
     )
     country = models.CharField(
         max_length=25,

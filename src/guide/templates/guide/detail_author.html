@@ -8,10 +8,29 @@
 {% block body %}
 {% csrf_token %}
     <h1>Информация об авторе</h1>
-    {{object.pk}}<br>
-    {{object.name}}<br>
-    {{object.surname}}<br>
-    {{object.birthday}}<br>
-    {{object.nation}}<br>
+    {% if user.is_staff %}
+
+    ID автора: {{object.pk}}<br>
+    {% endif %}
+    Имя: {{object.name}}<br>
+    Фамилия: {{object.surname}}<br>
+    Дата рождения: {{object.birthday}}<br>
+    Национальность: {{object.nation}}<br>
+
+<h3>Книги автора</h3>
+    <table class="table table-bordered border-primary">
+        <tr>
+          <td> Название </td>
+          <td> Жанр </td>
+          <td> Цена  </td>
+        </tr>
+        {% for author in object.authorbook.all %}
+        <tr>
+          <td><a href= "{% url 'book:detail-book' pk=author.pk %}" >  {{author.name}} </a> </td>
+          <td> {{author.genre_book}} </td>
+          <td> {{author.price}} </td>
+        </tr>
+        {% endfor %}
+        </table>
 
 {% endblock body %}

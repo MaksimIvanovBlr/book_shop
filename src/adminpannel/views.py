@@ -26,7 +26,5 @@ class UserPannel(LoginRequiredMixin, generic.TemplateView):
         u_id = self.request.user
         user_pk = User.objects.get(pk=u_id.pk)
         context['pk'] = user_pk.pk
-        print('.!!!!!!!!!!!!!!!', user_pk)
-        # context['user_url']= "{% url 'custom_user:detail-user' pk={{f'{id}'}} %}"
         return context   
 

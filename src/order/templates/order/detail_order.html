@@ -2,20 +2,17 @@
 
 
 {% block title %}
-Информация о книге
+Информация о заказе
 {% endblock title %}
 
 {% block body %}
 {% csrf_token %}
-    <h1>Информация о книге</h1>
+    <h1>Информация о заказе</h1>
    
    <div>
    ID заказа: {{object.pk}}<br>
-   № корзины: {{object.cart}}<br>
-   {% comment %} <a href="{% url 'guide:detail-author' pk=object.author_book.pk %}" >Автор: {{object.author_book}}<br> </a> 
-   <a href="{% url 'guide:detail-genre' pk=object.genre_book.pk %}">  Жанр: {{object.genre_book}}</a><br>
-   <a href="{% url 'guide:detail-series' pk=object.series_book.pk %}"> Серия: {{object.series_book}}</a> <br>
-   <a href="{% url 'guide:detail-publishing' pk=object.publishing_book.pk %}"> Издательство: {{object.publishing_book}}</a> <br> {% endcomment %}
+   № корзины: {{object.cart.pk}}<br>
+   заказчик: {{object.cart.user}}<br>
    Статус: {{object.status}}<br>
    Имя покупателя: {{object.name}}<br>
    Номер телефона: {{object.telefon_number}}<br>
@@ -25,4 +22,27 @@
    Дата последнего изменения заказа: {{object.updated_date}}<br>
    Дополнительная информация: {{object.additional_information}}<br>
 </div>
+<div>
+  <h3>Товары в заказе</h3>
+<table class="table table-bordered border-primary">
+<tr>
+  <td> Название </td>
+  <td> Количечство </td>
+  <td> Цена за единицу </td>
+  <td> Цена за позицию </td>
+</tr>
+{% for book in object.cart.cart.all %}
+<tr>
+  <td> {{book}} </td>
+  <td> {{book.quantity}} </td>
+  <td> {{book.price}} </td>
+  <td> {{book.price_per_position}} </td>
+</tr>
+{% endfor %}
+</table>
+<p>Общая сумма заказа :{{object.cart.total_price}} </p>
+<h3><a href= "{% url 'order:update-order' pk=object.pk %}" class="btn btn-success"> Данные заказа </a> </h3>
+{% comment %} <h3><a href= '{% url "order:cart" pk=object.cart.pk %}' class="btn btn-success"> Редактировать заказ</a></h3> {% endcomment %}
+<h3><a href= '' class="btn btn-success"> Редактировать корзину</a></h3>
 {% endblock body %}
+
