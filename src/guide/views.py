@@ -74,7 +74,7 @@ class DetailGenre(generic.DetailView):
     def get_context_data(self,*args, **kwargs):
         context = super().get_context_data(*args,**kwargs)
         context['operation'] = 'Описание жанра'
-        # context['some_list'] = 'object.genrebook.all'
+        # context['some_list'] = 'object.guidebook.all'
         return context   
 
 class UpdateGenre(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):

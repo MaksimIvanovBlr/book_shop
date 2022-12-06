@@ -11,8 +11,8 @@
     {{object.pk}}<br>
     {{object.name}}<br>
     {{object.description}}<br>
-    <h3>Книги автора</h3>
-    {% comment %} <table class="table table-bordered border-primary">
+    {% comment %} <h3>Книги автора</h3>
+    <table class="table table-bordered border-primary">
         <tr>
           <td> Название </td>
           <td> Цена  </td>
@@ -23,6 +23,6 @@
           <td> {{obj.price}} </td>
         </tr>
         {% endfor %}
-        </table>  {% endcomment %}
+        </table> {% endcomment %}
 {% endblock body %}
 {% comment %} seriesbook, genrebook  publishingbook {% endcomment %}

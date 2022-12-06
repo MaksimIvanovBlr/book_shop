@@ -3,7 +3,8 @@ from django.views import generic
 from django.urls import reverse_lazy
 from . import models, forms
 from book import models as b_models
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.http import Http404
 
 
 
@@ -59,15 +60,24 @@ def cart_view(request):
         context=context
 
     )
-class UpdateBookInCart(generic.UpdateView):
-    model = models.BookInCart
-    template_name = 'guide/edit_guide.html'
 
 
-class DeletePosition(generic.DeleteView):
+
+
+
+class DeletePosition(UserPassesTestMixin, generic.DeleteView):
     model = models.BookInCart
     success_url = reverse_lazy('order:cart')
     template_name = 'order/delete_position.html'
+    def test_func(self):
+        if self.request.user.is_authenticated != self.request.user.is_staff:
+            detail = self.get_object()
+            if self.request.user== detail.cart.user:
+                return True
+            return False
+        else:
+            return True
+
 
 
 class MakeAnOrder(generic.CreateView):
@@ -83,6 +93,7 @@ class MakeAnOrder(generic.CreateView):
 
     def get_success_url(self):
         del self.request.session['cart_id']
+        # mailing!!!
         return super().get_success_url()
 
 
@@ -107,22 +118,42 @@ class ListOrder(PermissionRequiredMixin, LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return super(ListOrder, self).get_queryset().order_by('-updated_date')
 
+class UserListOrder(LoginRequiredMixin, generic.ListView):
+    model = models.Order
+    template_name = 'order/user_list_order.html'
+    def get_queryset(self): 
+        object_list = models.Order.objects.filter()
+        return object_list
 
-class DetailOrder(generic.DetailView):
+
+class DetailOrder(UserPassesTestMixin, LoginRequiredMixin, generic.DetailView):
     model = models.Order
     template_name = 'order/detail_order.html'
+    login_url = reverse_lazy('login')
+    def test_func(self):
+        if self.request.user.is_authenticated != self.request.user.is_staff:
+            detail = self.get_object()
+            if self.request.user== detail.cart.user:
+                return True
+            return False
+        else:
+            return True
 
-class UpdateOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class UpdateOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = models.Order
     form_class = forms.OrderForm
     permission_required = 'book.add_book'
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('order:list-order')
     template_name = 'order/edit_order.html'
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(*args,**kwargs)
-        context['operation'] = 'Редактировать данные заказа'
-        return context
+    def test_func(self):
+        if self.request.user.is_authenticated != self.request.user.is_staff:
+            detail = self.get_object()
+            if self.request.user== detail.cart.user:
+                return True
+            return False
+        else:
+            return True
 
 class DeleteOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = models.Order
@@ -135,3 +166,11 @@ class DeleteOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVie
         context['operation'] = 'Удалить заказ'
         context['alarm_message'] = 'Вы точно хотите удалить данный заказ?'
         return context
+
+class StaffUpdateOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    model = models.Order
+    form_class = forms.StaffOrderForm
+    permission_required = 'book.add_book'
+    login_url = reverse_lazy('login')
+    success_url = reverse_lazy('order:list-order')
+    template_name = 'order/staff_edit_order.html'

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+редактироваить данные заказа
+{% endblock title %}
+
+{% block body %}
+<div>
+    ID заказа: {{object.pk}}<br>
+    № корзины: {{object.cart.pk}}<br>
+    заказчик: {{object.cart.user}}<br>
+    Статус: {{object.status}}<br>
+    Имя покупателя: {{object.name}}<br>
+    Номер телефона: {{object.telefon_number}}<br>
+    Адрес доставки: {{object.adress}}<br>
+    email: {{object.email_adress}}<br>
+    Дата оформления заказа: {{object.created_date}}<br>
+    Дата последнего изменения заказа: {{object.updated_date}}<br>
+    Дополнительная информация: {{object.additional_information}}<br>
+ </div>
+ <div>
+   <h3>Товары в заказе</h3>
+ <table class="table table-bordered border-primary">
+ <tr>
+   {% if user.is_staff %}
+   <td> pk book in cart</td>
+   {% endif %}
+ 
+   <td> Название </td>
+   <td> Количечство </td>
+   <td> Цена за единицу </td>
+   <td> Цена за позицию </td>
+   <td> Удалить </td>
+ </tr>
+ {% for book in object.cart.cart.all %}
+ <tr>
+   {% if user.is_staff %}
+   <td>{{book.pk}}</td>
+   {% endif %}
+   <td> {{book}} </td>
+   <td> {{book.quantity}} </td>
+   <td> {{book.price}} </td>
+   <td> {{book.price_per_position}} </td>
+   <td> <a href= "{% url 'order:delete-position' pk=book.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a> </td>
+ </tr>
+ {% endfor %}
+ </table>
+ <p>Общая сумма заказа :{{object.cart.total_price}} </p>
+    <h1>Редактровать данные заказа</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form |crispy}}
+        <input type="submit" class="btn btn-success" value="Ok">
+        </form>
+{% endblock body %}

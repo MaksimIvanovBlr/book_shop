@@ -26,23 +26,35 @@
   <h3>Товары в заказе</h3>
 <table class="table table-bordered border-primary">
 <tr>
+  {% if user.is_staff %}
+  <td> pk book in cart</td>
+  {% endif %}
+
   <td> Название </td>
   <td> Количечство </td>
   <td> Цена за единицу </td>
   <td> Цена за позицию </td>
+  <td> Удалить </td>
 </tr>
 {% for book in object.cart.cart.all %}
 <tr>
+  {% if user.is_staff %}
+  <td>{{book.pk}}</td>
+  {% endif %}
   <td> {{book}} </td>
   <td> {{book.quantity}} </td>
   <td> {{book.price}} </td>
   <td> {{book.price_per_position}} </td>
+  <td> <a href= "{% url 'order:delete-position' pk=book.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a> </td>
 </tr>
 {% endfor %}
 </table>
 <p>Общая сумма заказа :{{object.cart.total_price}} </p>
-<h3><a href= "{% url 'order:update-order' pk=object.pk %}" class="btn btn-success"> Данные заказа </a> </h3>
-{% comment %} <h3><a href= '{% url "order:cart" pk=object.cart.pk %}' class="btn btn-success"> Редактировать заказ</a></h3> {% endcomment %}
-<h3><a href= '' class="btn btn-success"> Редактировать корзину</a></h3>
+{% if user.is_staff %}
+<h3><a href= "{% url 'order:staff-update-order' pk=object.pk %}" class="btn btn-success"> Редактировать статус заказа/контактые данные заказчика  </a> </h3>
+{% else %}
+<h3><a href= "{% url 'order:update-order' pk=object.pk %}" class="btn btn-success"> Редактировать контактые данные  </a> </h3>
+{% endif %}
+
 {% endblock body %}
 
