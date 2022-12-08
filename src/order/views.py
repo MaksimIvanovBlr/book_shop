@@ -6,7 +6,8 @@ from book import models as b_models
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import Http404
 from django.contrib.auth.models import User
-
+from django.views.generic.edit import FormMixin
+from comments import forms as c_forms
 
 
 def cart_view(request):
@@ -120,17 +121,6 @@ class ListOrder(PermissionRequiredMixin, LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return super(ListOrder, self).get_queryset().order_by('-updated_date')
 
-# class UserListOrder(LoginRequiredMixin, generic.ListView):
-#     model = models.Order
-#     template_name = 'order/user_list_order.html'
-#     login_url = reverse_lazy('login')
-#     def get_queryset(self):
-#         user_list = self.request.user
-#         mod = models.Order.cart
-#         user_1 = self.request.user.user_cart.all()
-#         print('!!!!!!!!!!!!!!!!!', user_list, mod, user_1)
-#         object_list = models.Order.objects.filter(user_1)
-#         return object_list
 class UserListOrder(LoginRequiredMixin, generic.ListView):
     model = models.Cart
     template_name = 'order/user_list_order.html'
@@ -144,10 +134,11 @@ class UserListOrder(LoginRequiredMixin, generic.ListView):
         return object_list
 
 
-class DetailOrder(UserPassesTestMixin, LoginRequiredMixin, generic.DetailView):
+class DetailOrder(FormMixin, UserPassesTestMixin, LoginRequiredMixin, generic.DetailView):
     model = models.Order
     template_name = 'order/detail_order.html'
     login_url = reverse_lazy('login')
+    form_class = c_forms.CommentToOrderForm
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:
             detail = self.get_object()
@@ -156,6 +147,17 @@ class DetailOrder(UserPassesTestMixin, LoginRequiredMixin, generic.DetailView):
             return False
         else:
             return True
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        return self.form_valid(form)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.order = self.get_object()
+        form.save()
+        return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy('order:detail-order', kwargs={'pk':self.get_object().pk})
 
 class UpdateOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = models.Order

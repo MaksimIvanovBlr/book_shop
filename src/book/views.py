@@ -1,11 +1,9 @@
-from django.shortcuts import render
-
-from multiprocessing import context
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from comments import models as c_models
+from comments import forms as c_forms
+from django.views.generic.edit import FormMixin
 
 from . import models, forms
 
@@ -23,9 +21,23 @@ class AddBook(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
         context['operation'] = 'Добавить книгу'
         return context    
 
-class DetailBook(generic.DetailView):
+class DetailBook(FormMixin, generic.DetailView):
     model = models.Book
     template_name = 'book/detail_book.html'
+    form_class = c_forms.CommentToBookForm
+    
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        return self.form_valid(form)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.book = self.get_object()
+        form.save()
+        return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy('book:detail-book', kwargs={'pk':self.get_object().pk})
+
 
 class UpdateBook(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Book

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}
@@ -29,4 +30,52 @@
    Рейтинг: {{object.rating}}<br>
    Цена: {{object.price}} BYN<br>
 </div>
+<br>
+<div>
+    <form action="{% url 'order:cart' %}" method="post">
+        {% csrf_token %}
+         <button type="submit" class="btn btn-success">Добавить в корзину</button>  Количество:<input type="number" name="quantity" value="1" min="1"><br>
+        <input type="hidden" name="book_pk" value="{{object.pk}}">
+    </form>
+</div>
+<br>
+<div>
+    {% if object.book_comment.all.count == 0  %}
+    <p>Комментариев нет<br>
+     Оставьте комментарий первым!
+    </p>
+    {% else %}
+    <p>Комментарии к книге({{object.book_comment.all.count}}):</p>
+    <ul>
+    {% for comment in object.book_comment.all %}
+    <li>
+        {% if user.is_staff %}
+        pk комментария: {{comment.pk}}
+        {% endif %}
+        автор:{{comment.author}} <br>
+        {{comment.create_date}} <br>
+        сообщение:{{comment.message}} <br>
+        <br>
+        
+        {% if user.is_authenticated != user.is_staff %}
+        {% if user == comment.author %}
+         проверка1 <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+        {% endif %}
+        {% else %}
+        проверка2 <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+        {% endif %}
+         
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <p>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form |crispy}}
+        <input type="submit" class="btn btn-success" value="Ok">
+        </form>
+    </p>
+</div>
+
 {% endblock body %}

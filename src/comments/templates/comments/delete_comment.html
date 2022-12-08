@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{operation}}
+{% endblock title %}
+
+{% block body %}
+{%csrf_token%}
+    <h1>{{operation}}</h1>
+    <h2>{{alarm_message}}</h2>
+    {% if user.is_staff %}
+    {{object.user}}<br>
+    {{object.pk}}<br>
+    {% endif %}
+    {{object.message}}<br>
+    {{object.create_date}}<br>       
+    <form method = 'post'>
+        {%csrf_token%}           
+        <button type="submit" class="btn btn-danger">ДА</button>
+    </form>
+{% endblock body %}

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "adminpannel",
     "order",
     "custom_user",
+    "comments",
     
 ]
 
@@ -135,8 +136,8 @@ STATIC_ROOT = "/home/MaksimIvanovBlr/static"
 
 MEDIA_URL = "media/"
 
-MEDIA_ROOT = "/home/MaksimIvanovBlr/media"
-# MEDIA_ROOT = BASE_DIR/"media"
+# MEDIA_ROOT = "/home/MaksimIvanovBlr/media"
+MEDIA_ROOT = BASE_DIR/"media"
 
 
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block title %}
 Информация о заказе
@@ -61,6 +61,44 @@
 {% else %}
 <h3><a href= "{% url 'order:update-order' pk=object.pk %}" class="btn btn-success"> Редактировать контактые данные  </a> </h3>
 {% endif %}
+
+{% if object.order_comment.all.count == 0  %}
+    <p>Комментариев нет<br>
+    </p>
+    {% else %}
+    <p>Комментарии к заказу({{object.order_comment.all.count}}):</p>
+    <ul>
+    {% for comment in object.order_comment.all %}
+    <li>
+        {% if user.is_staff %}
+        pk комментария: {{comment.pk}}
+        {% endif %}
+        автор:{{comment.author}} <br>
+        {{comment.create_date}} <br>
+        сообщение:{{comment.message}} <br>
+        <br>
+        
+        {% if user.is_authenticated != user.is_staff %}
+        {% if user == comment.author %}
+         проверка1 <a href= "{% url 'comments:delete-comment-order' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+        {% endif %}
+        {% else %}
+        проверка2 <a href= "{% url 'comments:delete-comment-order' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+        {% endif %}
+         
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <p>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form |crispy}}
+        <input type="submit" class="btn btn-success" value="Ok">
+        </form>
+    </p>
+</div>
+
 
 {% endblock body %}
 
