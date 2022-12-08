@@ -34,7 +34,10 @@
   <td> Количечство </td>
   <td> Цена за единицу </td>
   <td> Цена за позицию </td>
+  {% if user.is_staff %}
+
   <td> Удалить </td>
+  {% endif %}
 </tr>
 {% for book in object.cart.cart.all %}
 <tr>
@@ -45,7 +48,10 @@
   <td> {{book.quantity}} </td>
   <td> {{book.price}} </td>
   <td> {{book.price_per_position}} </td>
+  {% if user.is_staff %}
   <td> <a href= "{% url 'order:delete-position' pk=book.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a> </td>
+  
+  {% endif %}
 </tr>
 {% endfor %}
 </table>

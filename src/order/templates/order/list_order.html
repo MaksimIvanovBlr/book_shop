@@ -16,6 +16,7 @@
         <td> Данные заказа </td>
         <td> Статус </td>
         <td> Покупатель </td>
+        <td>Login покупателя</td>
         <td> дата создания </td>
         <td> Дата редактирования </td>
         <td> Удаление </td>
@@ -29,6 +30,7 @@
         <td><a href= "{% url 'order:detail-order' pk=obj.pk %}">{{obj.cart}} </a></td> 
         <td><a href= "{% url 'order:staff-update-order' pk=obj.pk %}" class="btn btn-success"> {{obj.status}} </a></td>
         <td> {{obj.name}} </td>
+        <td> {{obj.cart.user}} </td>
         <td>{{obj.created_date}} </td>
         <td>{{obj.updated_date}}</td>
         <td><a href= "{% url 'order:delete-order' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td> 

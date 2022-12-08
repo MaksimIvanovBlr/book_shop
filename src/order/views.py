@@ -5,6 +5,7 @@ from . import models, forms
 from book import models as b_models
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import Http404
+from django.contrib.auth.models import User
 
 
 
@@ -115,14 +116,31 @@ class ListOrder(PermissionRequiredMixin, LoginRequiredMixin, generic.ListView):
     model = models.Order
     permission_required = ('book.change_book', 'auth.change_user')
     template_name = 'order/list_order.html'
+    login_url = reverse_lazy('login')
     def get_queryset(self):
         return super(ListOrder, self).get_queryset().order_by('-updated_date')
 
+# class UserListOrder(LoginRequiredMixin, generic.ListView):
+#     model = models.Order
+#     template_name = 'order/user_list_order.html'
+#     login_url = reverse_lazy('login')
+#     def get_queryset(self):
+#         user_list = self.request.user
+#         mod = models.Order.cart
+#         user_1 = self.request.user.user_cart.all()
+#         print('!!!!!!!!!!!!!!!!!', user_list, mod, user_1)
+#         object_list = models.Order.objects.filter(user_1)
+#         return object_list
 class UserListOrder(LoginRequiredMixin, generic.ListView):
-    model = models.Order
+    model = models.Cart
     template_name = 'order/user_list_order.html'
-    def get_queryset(self): 
-        object_list = models.Order.objects.filter()
+    login_url = reverse_lazy('login')
+    def get_queryset(self):
+        user_1 = self.request.user
+        mod = models.Cart.objects.all()
+        user_2 = self.request.user.user_cart.all()
+        print('!!!!!!!!!!!!!!!!!', user_1, mod, user_2)
+        object_list = models.Cart.objects.filter(user = user_1)
         return object_list
 
 
@@ -133,7 +151,7 @@ class DetailOrder(UserPassesTestMixin, LoginRequiredMixin, generic.DetailView):
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:
             detail = self.get_object()
-            if self.request.user== detail.cart.user:
+            if self.request.user == detail.cart.user:
                 return True
             return False
         else:
