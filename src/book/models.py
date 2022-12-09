@@ -42,18 +42,19 @@ class Book(models.Model):
         max_length=40
     )
 
-    author_book = models.ForeignKey(
+    author_book = models.ManyToManyField(
         'guide.Author',
         verbose_name='Автор',
-        on_delete=models.PROTECT,
-        related_name= 'authorbook' 
+        related_name= 'authorbook', 
     )
+    
     series_book = models.ForeignKey(
         'guide.Series',
         verbose_name='Серия',
         on_delete=models.PROTECT,
         related_name= 'seriesbook' 
     )
+
     genre_book = models.ForeignKey(
         'guide.Genre',
         verbose_name='Жанр',
