@@ -22,7 +22,7 @@
          <tr>
            <td><a href= "{% url 'order:update-order' pk=obj.order.pk %}">Данные заказа №{{obj.order.pk}}  </a> </td>  
            <td><a href= "{% url 'order:detail-order' pk=obj.order.pk %}">Корзина №{{obj.pk}} </a></td> 
-           <td><a href= "{% url 'order:staff-update-order' pk=obj.order.pk %}" class="btn btn-success"> {{obj.order.status}} </a></td>
+           <td> {{obj.order.status}}</td>
            <td>{{obj.order.created_date}} </td>
            <td>{{obj.order.updated_date}}</td>
         

@@ -6,11 +6,13 @@
 {% endblock title %}
 
 {% block body %}
-{% csrf_token %}
+
     <h1>Главная страница</h1>
+<div class="container">
 <strong> Новинки</strong>
+<div class="row">
     {% for books in book  %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 15rem;">
         <img src="{{ books.cover.url }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Название:{{books.name}}</h5>
@@ -29,4 +31,86 @@
         </div>
       </div>
  {% endfor %}
+    </div>
+  </div >
+
+{% comment %} 
+  <div class="container">
+    <strong> Популярные</strong>
+    <div class="row">
+        {% for books in book_rating %}
+        <div class="card" style="width: 15rem;">
+            <img src="{{ books.cover.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Название:{{books.name}}</h5>
+              <p class="card-text">Автор: {{books.author_book}}</p>
+              <p class="card-text">Жанр: {{books.genre_book}}</p>
+              <p class="card-text">Цена: {{books.price}} BYN</p>
+              <p class="card-text">Рейтинг: {{books.rating}}</p>
+              <a href="{% url 'book:detail-book' pk=books.pk %}" class="btn btn-primary">Подробнее</a>
+              <p></p>
+              <form action="{% url 'order:cart' %}" method="post">
+                {% csrf_token %}
+                <p><button type="submit" class="btn btn-success">Добавить в корзину</button></p>
+                <p>Количество:<input type="number" name="quantity" value="1" min="1"></p>
+                <input type="hidden" name="book_pk" value="{{books.pk}}">    
+            </form>
+            </div>
+          </div>
+     {% endfor %}
+        </div>
+      </div > {% endcomment %}
+
+    <div class="container">
+    <strong> Популярные</strong>
+    <div class="row">
+      {% for books in book_rating %}
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ books.cover.url }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{books.name}}</h5>
+              <p class="card-text">Автор: {{books.author_book}}</p>
+              <p class="card-text">Цена: {{books.price}} BYN</p>
+              <p class="card-text"><small class="text-muted">{{books.add_to_catalog}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+
+      <div class="container">
+        <strong> Акции</strong>
+        <div class="row">
+            {% for books in book_less_price %}
+            <div class="card" style="width: 15rem;">
+                <img src="{{ books.cover.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Название:{{books.name}}</h5>
+                  <p class="card-text">Автор: {{books.author_book}}</p>
+                  <p class="card-text">Жанр: {{books.genre_book}}</p>
+                  <p class="card-text">Цена: {{books.price}} BYN</p>
+                  <p class="card-text">Рейтинг: {{books.rating}}</p>
+                  <a href="{% url 'book:detail-book' pk=books.pk %}" class="btn btn-primary">Подробнее</a>
+                  <p></p>
+                  <form action="{% url 'order:cart' %}" method="post">
+                    {% csrf_token %}
+                    <p><button type="submit" class="btn btn-success">Добавить в корзину</button></p>
+                    <p>Количество:<input type="number" name="quantity" value="1" min="1"></p>
+                    <input type="hidden" name="book_pk" value="{{books.pk}}">    
+                </form>
+                </div>
+              </div>
+         {% endfor %}
+            </div>
+          </div >
+  
 {% endblock body %}

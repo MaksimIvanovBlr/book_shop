@@ -10,27 +10,53 @@
 
     <h1>Список книг</h1>
     <table class="table table-bordered border-primary">
+    <tr>
+      <td>Название</td>
+      <td>Автор</td>
+      <td>Жанр</td>
+      <td>Доступен к заказу</td>
+      <td>Цена</td>
+      <td>Добавить в корзину</td>
+      <td>Количество</td>
+      {% if user.is_staff %}
+      
+      <td>Дата поступления</td>
+      <td>ID/Редакторвать</td>
+      <td>Доступное количество</td>
+      <td>Удалить</td>
+      {% endif %}
+    </tr>
     {% for obj in object_list %}
-      <tr>
-       {% if user.is_staff %}
-        <td><a href= "{% url 'book:update-book' pk=obj.pk %}"> {{obj.pk}} </a> </td>
-      {% endif %}  
-        <td><a href= "{% url 'book:detail-book' pk=obj.pk %}">{{obj.name}} {{object.author_book}} {{object.genre_book}} {{obj.quantity_available}}</a></td>
+    <tr>
 
+        <td><a href= "{% url 'book:detail-book' pk=obj.pk %}">{{obj.name}} </a></td>
+        <td> {{obj.author_book}} </td>
+        <td> {{obj.genre_book}}</td>
+        {% if obj.availability == True %}
+        <td> Доступен</td>
+        {% else %}
+        <td>Недоступен</td>
+        {% endif %}
+        <td>{{obj.price}}руб.</td>
 
-
-
+        {% if obj.availability == True %}
       <form action="{% url 'order:cart' %}" method="post">
         {% csrf_token %}
         <td> <button type="submit" class="btn btn-success">Добавить в корзину</button></td>
         <td>Количество:<input type="number" name="quantity" value="1" min="1"></td>
         <input type="hidden" name="book_pk" value="{{obj.pk}}">
-
     </form>
+    {% else %}
+    <td> <button type="submit" class="btn btn-secondary">Недоступен для заказа</button></td>
+        <td><i class="bi bi-emoji-frown"></i></td>
+  
+    {% endif %}
 
 
-      
         {% if user.is_staff %} 
+        <td>{{obj.add_to_catalog}}</td>
+        <td><a href= "{% url 'book:update-book' pk=obj.pk %}"> {{obj.pk}} </a> </td>
+        <td> {{obj.quantity_available}}шт.</td>  
         <td><a href= "{% url 'book:delete-book' pk=obj.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить</a></td>
       {% endif %} 
       </tr> 

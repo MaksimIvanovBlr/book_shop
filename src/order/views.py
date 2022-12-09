@@ -8,6 +8,9 @@ from django.http import Http404
 from django.contrib.auth.models import User
 from django.views.generic.edit import FormMixin
 from comments import forms as c_forms
+from django.conf import settings
+from django.core.mail import send_mail
+from django.db.models import Q
 
 
 def cart_view(request):
@@ -95,7 +98,11 @@ class MakeAnOrder(generic.CreateView):
 
     def get_success_url(self):
         del self.request.session['cart_id']
-        # mailing!!!
+        # subject = 'Новый заказ'
+        # message = 'Появился новый заказ!'
+        # email_from = 'fortestsendingdjango@mail.ru'
+        # recipient_list = ['someone736970@gmail.com', ]
+        # send_mail( subject, message, email_from, recipient_list )
         return super().get_success_url()
 
 
@@ -162,7 +169,6 @@ class DetailOrder(FormMixin, UserPassesTestMixin, LoginRequiredMixin, generic.De
 class UpdateOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = models.Order
     form_class = forms.OrderForm
-    permission_required = 'book.add_book'
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('order:list-order')
     template_name = 'order/edit_order.html'
@@ -194,3 +200,23 @@ class StaffUpdateOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.Upda
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('order:list-order')
     template_name = 'order/staff_edit_order.html'
+
+
+
+
+class UpdateStatusOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
+    model = models.Order
+    form_class = forms.ChangeOrderStatusForm
+    login_url = reverse_lazy('login')
+    success_url = reverse_lazy('order:list-order')
+    template_name = 'order/status_order.html'
+
+
+    def test_func(self):
+        if self.request.user.is_authenticated != self.request.user.is_staff:
+            detail = self.get_object()
+            if self.request.user== detail.cart.user:
+                return True
+            return False
+        else:
+            return True

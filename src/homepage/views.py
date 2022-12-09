@@ -12,8 +12,10 @@ class HomePage(generic.TemplateView):
     template_name = 'homepage/homepage.html'
     def get_context_data(self,*args, **kwargs):
         context = super().get_context_data(*args,**kwargs)
-        context['book'] = models.Book.objects.all().order_by('-id')[:5]
-        # context['total_quantiti_in_cart'] = '888'
+        context['book'] = models.Book.objects.filter(availability=True).order_by('-id')[:5]
+        context['book_less_price'] = models.Book.objects.filter(availability=True).order_by('-price')[:5]
+        context['book_rating'] = models.Book.objects.filter(availability=True).order_by('rating')[:5]
+        context['discounts'] = ''
         return context 
 
 class SearchResults(generic.ListView):

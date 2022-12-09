@@ -57,9 +57,9 @@
 </table>
 <p>Общая сумма заказа :{{object.cart.total_price}} </p>
 {% if user.is_staff %}
-<h3><a href= "{% url 'order:staff-update-order' pk=object.pk %}" class="btn btn-success"> Редактировать статус заказа/контактые данные заказчика  </a> </h3>
+<h3><a href= "{% url 'order:staff-update-order' pk=object.pk %}" class="btn btn-success"> Редактировать статус заказа/контактые данные заказчика  </a> | <a href= "{% url 'order:status-order' pk=object.pk %}" class="btn btn-danger"> Изменить статус заказа</a></h3>
 {% else %}
-<h3><a href= "{% url 'order:update-order' pk=object.pk %}" class="btn btn-success"> Редактировать контактые данные  </a> </h3>
+ <h3><a href= "{% url 'order:update-order' pk=object.pk %}" class="btn btn-success"> Редактировать контактые данные  </a>  | <a href= "{% url 'order:status-order' pk=object.pk %}" class="btn btn-danger"> Отменить заказ</a> </h3> 
 {% endif %}
 
 {% if object.order_comment.all.count == 0  %}
