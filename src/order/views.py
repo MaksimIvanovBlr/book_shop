@@ -29,17 +29,16 @@ def cart_view(request):
                 # print(user)
             else:
                 user = None
-            cart,created = models.Cart.objects.get_or_create(
-            pk=cart_id,
-            defaults= {'user':user}
+            cart, created = models.Cart.objects.get_or_create(
+                pk=cart_id,
+                defaults={'user': user}
             )
             context['cart'] = cart
             if created:
                 request.session['cart_id'] = cart.pk
-            
-            book = b_models.Book.objects.get(pk = int(book_pk))
-            price  = book.price
-            
+
+            book = b_models.Book.objects.get(pk=int(book_pk))
+            price = book.price
 
             book_in_cart, created = models.BookInCart.objects.get_or_create(
                 book=book,
@@ -50,39 +49,35 @@ def cart_view(request):
                 }
             )
             if not created:
-               book_in_cart.quantity += int(quantity)
-               book_in_cart.save() 
+                book_in_cart.quantity += int(quantity)
+                book_in_cart.save()
     else:
         cart_id = request.session.get('cart_id')
         if cart_id:
             cart = models.Cart.objects.get(pk=cart_id)
             context['cart'] = cart
 
-
     return render(
-        request=request, 
+        request=request,
         template_name='order/cart.html',
         context=context
 
     )
 
 
-
-
-
 class DeletePosition(UserPassesTestMixin, generic.DeleteView):
     model = models.BookInCart
     success_url = reverse_lazy('order:cart')
     template_name = 'order/delete_position.html'
+
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:
             detail = self.get_object()
-            if self.request.user== detail.cart.user:
+            if self.request.user == detail.cart.user:
                 return True
             return False
         else:
             return True
-
 
 
 class MakeAnOrder(generic.CreateView):
@@ -90,6 +85,7 @@ class MakeAnOrder(generic.CreateView):
     template_name = 'order/create_order.html'
     form_class = forms.OrderForm
     success_url = reverse_lazy('order:success')
+
     def form_valid(self, form):
         cart = models.Cart.objects.get(pk=self.request.session.get('cart_id'))
         form.instance.cart = cart
@@ -110,14 +106,15 @@ class SuccessView(generic.TemplateView):
     model = models.Order
     template_name = 'order/success_order.html'
     print(model.name)
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(*args,**kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
         # print(models.Order.objects.get(self.request.session.get(pk=10)))
         # context['order'] = models.Order.objects.get()
         # last_order = models.Order.objects.all().order_by('-id')[:1]
         # print(last_order.name )
         # context['order'] = last_order
-        return context 
+        return context
 
 
 class ListOrder(PermissionRequiredMixin, LoginRequiredMixin, generic.ListView):
@@ -125,19 +122,22 @@ class ListOrder(PermissionRequiredMixin, LoginRequiredMixin, generic.ListView):
     permission_required = ('book.change_book', 'auth.change_user')
     template_name = 'order/list_order.html'
     login_url = reverse_lazy('login')
+
     def get_queryset(self):
         return super(ListOrder, self).get_queryset().order_by('-updated_date')
+
 
 class UserListOrder(LoginRequiredMixin, generic.ListView):
     model = models.Cart
     template_name = 'order/user_list_order.html'
     login_url = reverse_lazy('login')
+
     def get_queryset(self):
         user_1 = self.request.user
         mod = models.Cart.objects.all()
         user_2 = self.request.user.user_cart.all()
         print('!!!!!!!!!!!!!!!!!', user_1, mod, user_2)
-        object_list = models.Cart.objects.filter(user = user_1)
+        object_list = models.Cart.objects.filter(user=user_1)
         return object_list
 
 
@@ -146,6 +146,7 @@ class DetailOrder(FormMixin, UserPassesTestMixin, LoginRequiredMixin, generic.De
     template_name = 'order/detail_order.html'
     login_url = reverse_lazy('login')
     form_class = c_forms.CommentToOrderForm
+
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:
             detail = self.get_object()
@@ -154,6 +155,7 @@ class DetailOrder(FormMixin, UserPassesTestMixin, LoginRequiredMixin, generic.De
             return False
         else:
             return True
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         return self.form_valid(form)
@@ -163,8 +165,10 @@ class DetailOrder(FormMixin, UserPassesTestMixin, LoginRequiredMixin, generic.De
         form.instance.order = self.get_object()
         form.save()
         return super().form_valid(form)
+
     def get_success_url(self):
-        return reverse_lazy('order:detail-order', kwargs={'pk':self.get_object().pk})
+        return reverse_lazy('order:detail-order', kwargs={'pk': self.get_object().pk})
+
 
 class UpdateOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = models.Order
@@ -172,14 +176,16 @@ class UpdateOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('order:list-order')
     template_name = 'order/edit_order.html'
+
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:
             detail = self.get_object()
-            if self.request.user== detail.cart.user:
+            if self.request.user == detail.cart.user:
                 return True
             return False
         else:
             return True
+
 
 class DeleteOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = models.Order
@@ -187,11 +193,13 @@ class DeleteOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVie
     login_url = reverse_lazy('login')
     template_name = 'order/delete_order.html'
     success_url = reverse_lazy('order:list-order')
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(*args,**kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
         context['operation'] = 'Удалить заказ'
         context['alarm_message'] = 'Вы точно хотите удалить данный заказ?'
         return context
+
 
 class StaffUpdateOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Order
@@ -202,8 +210,6 @@ class StaffUpdateOrder(LoginRequiredMixin, PermissionRequiredMixin, generic.Upda
     template_name = 'order/staff_edit_order.html'
 
 
-
-
 class UpdateStatusOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = models.Order
     form_class = forms.ChangeOrderStatusForm
@@ -211,11 +217,10 @@ class UpdateStatusOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateV
     success_url = reverse_lazy('order:list-order')
     template_name = 'order/status_order.html'
 
-
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:
             detail = self.get_object()
-            if self.request.user== detail.cart.user:
+            if self.request.user == detail.cart.user:
                 return True
             return False
         else:

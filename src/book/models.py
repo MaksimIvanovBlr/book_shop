@@ -33,9 +33,8 @@ class Book(models.Model):
     cover = models.ImageField(
         verbose_name='Обложка книги',
         upload_to='uploads/%Y/%m/%d'
-        
-    )
 
+    )
 
     name = models.CharField(
         verbose_name='Название',
@@ -45,32 +44,32 @@ class Book(models.Model):
     author_book = models.ManyToManyField(
         'guide.Author',
         verbose_name='Автор',
-        related_name= 'authorbook', 
+        related_name='authorbook',
     )
-    
+
     series_book = models.ForeignKey(
         'guide.Series',
         verbose_name='Серия',
         on_delete=models.PROTECT,
-        related_name= 'seriesbook' 
+        related_name='seriesbook'
     )
 
     genre_book = models.ForeignKey(
         'guide.Genre',
         verbose_name='Жанр',
         on_delete=models.PROTECT,
-        related_name= 'genrebook' 
+        related_name='genrebook'
     )
     publishing_book = models.ForeignKey(
         'guide.Publishing',
         verbose_name='Издательство',
         on_delete=models.PROTECT,
-        related_name= 'publishingbook' 
+        related_name='publishingbook'
     )
 
     price = models.DecimalField(
         verbose_name='Цена',
-        max_digits=5, 
+        max_digits=5,
         decimal_places=2
     )
     last_change = models.DateField(
@@ -98,14 +97,14 @@ class Book(models.Model):
     )
 
     binding = models.TextField(
-        verbose_name = 'Переплет',
+        verbose_name='Переплет',
         max_length=100,
         blank=True,
         null=True
     )
 
     book_format = models.TextField(
-        verbose_name = 'Формат',
+        verbose_name='Формат',
         max_length=100,
         blank=True,
         null=True
@@ -113,45 +112,40 @@ class Book(models.Model):
 
     year_of_publication = models.DecimalField(
         verbose_name='Год издания',
-        max_digits=4, 
+        max_digits=4,
         decimal_places=0,
         blank=True,
         null=True
     )
 
-    isbn =  models.TextField(
-        verbose_name = 'ISBN',
+    isbn = models.TextField(
+        verbose_name='ISBN',
         max_length=100,
         blank=True,
         null=True
-        )
+    )
 
-    age_restrictions =  models.TextField(
-        verbose_name = 'Возрастные ограничения',
+    age_restrictions = models.TextField(
+        verbose_name='Возрастные ограничения',
         max_length=10,
         blank=True,
         null=True
-        )
+    )
 
     rating = models.CharField(
         verbose_name='Рейтинг',
         max_length=50,
-        choices = CHOISE_GROUP,
-        default = ZERO
+        choices=CHOISE_GROUP,
+        default=ZERO
 
-        )
-    
-    availability = models.BooleanField(
-        verbose_name = 'Доступен для заказа'
     )
 
+    availability = models.BooleanField(
+        verbose_name='Доступен для заказа'
+    )
 
     def __str__(self):
         return f'{self.name}'
 
     def get_absolute_url(self):
-        return reverse_lazy('book:detail-book', kwargs ={'pk':self.pk}) 
-
-
-
-
+        return reverse_lazy('book:detail-book', kwargs={'pk': self.pk})

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 inbuilt_user = get_user_model()
 
+
 class ExtendUser(models.Model):
     extend_user = models.OneToOneField(
         inbuilt_user,
@@ -46,9 +47,5 @@ class ExtendUser(models.Model):
 
     def __str__(self):
         return str(self.extend_user)
-     
-
-
-
 
 # Create your models here.

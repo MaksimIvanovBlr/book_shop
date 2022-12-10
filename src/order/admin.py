@@ -3,10 +3,11 @@ from . import models
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('pk','user')
+    list_display = ('pk', 'user')
+
 
 class BookInCartAdmin(admin.ModelAdmin):
-    list_display = ('pk','book','cart','quantity','price','created_date','update_date')
+    list_display = ('pk', 'book', 'cart', 'quantity', 'price', 'created_date', 'update_date')
 
 
 admin.site.register(models.Cart, CartAdmin)

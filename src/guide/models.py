@@ -19,7 +19,7 @@ class Genre(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse_lazy('detail-genre', kwargs ={'pk':self.pk})
+        return reverse_lazy('detail-genre', kwargs={'pk': self.pk})
 
 
 class Author(models.Model):
@@ -50,8 +50,8 @@ class Author(models.Model):
         return f'{self.surname} {self.name}'
 
     def get_absolute_url(self):
-        return reverse_lazy('detail-author', kwargs ={'pk':self.pk})
-    
+        return reverse_lazy('detail-author', kwargs={'pk': self.pk})
+
 
 class Series(models.Model):
     """серия книг"""
@@ -70,7 +70,7 @@ class Series(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse_lazy('detail-series', kwargs ={'pk':self.pk}) 
+        return reverse_lazy('detail-series', kwargs={'pk': self.pk})
 
 
 class Publishing(models.Model):
@@ -84,4 +84,4 @@ class Publishing(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse_lazy('detail-publishing', kwargs ={'pk':self.pk})
+        return reverse_lazy('detail-publishing', kwargs={'pk': self.pk})

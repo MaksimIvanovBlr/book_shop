@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-
 User = get_user_model()
+
 
 class Cart(models.Model):
     user = models.ForeignKey(
@@ -13,12 +13,14 @@ class Cart(models.Model):
         null=True,
         blank=True
     )
+
     def total_price(self):
         all_books_positions = self.cart.all()
         total_price = 0
         for book_position in all_books_positions:
             total_price += book_position.price_per_position
         return total_price
+
 
 class BookInCart(models.Model):
     book = models.ForeignKey(
@@ -50,6 +52,7 @@ class BookInCart(models.Model):
         verbose_name='дата изменения',
         auto_now=True
     )
+
     @property
     def price_per_position(self):
         return self.price * self.quantity
@@ -57,11 +60,13 @@ class BookInCart(models.Model):
     def __str__(self):
         return str(self.book)
 
+
 class Statuses(models.Model):
     status = models.CharField(
         verbose_name='статус',
         max_length=40
     )
+
     def __str__(self):
         return self.status
 
@@ -83,16 +88,16 @@ class Order(models.Model):
     )
     name = models.CharField(
         verbose_name='ФИО',
-        max_length= 200
+        max_length=200
     )
-    
+
     telefon_number = models.PositiveIntegerField(
         verbose_name='номер телефона'
     )
     email_adress = models.EmailField(
         verbose_name='email',
-         max_length=254)
-    
+        max_length=254)
+
     adress = models.TextField(
         verbose_name='Адрес',
         max_length=200
@@ -113,7 +118,6 @@ class Order(models.Model):
         blank=True,
         null=True
     )
-    
 
     def __str__(self):
         return str(self.pk)

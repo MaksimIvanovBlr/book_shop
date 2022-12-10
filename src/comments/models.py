@@ -2,9 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from book import models as b_models
 
-
-
 User = get_user_model()
+
 
 class CommentToBook(models.Model):
     author = models.ForeignKey(
@@ -27,7 +26,6 @@ class CommentToBook(models.Model):
         max_length=1000
     )
 
-
     create_date = models.DateTimeField(
         verbose_name='дата создания',
         auto_now_add=True
@@ -38,7 +36,6 @@ class CommentToBook(models.Model):
 
 
 class CommentToOrder(models.Model):
-
     author = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
@@ -59,7 +56,6 @@ class CommentToOrder(models.Model):
         max_length=1000
     )
 
-    
     create_date = models.DateTimeField(
         verbose_name='дата создания',
         auto_now_add=True
