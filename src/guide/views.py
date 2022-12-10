@@ -74,7 +74,10 @@ class DetailGenre(generic.DetailView):
     def get_context_data(self,*args, **kwargs):
         context = super().get_context_data(*args,**kwargs)
         context['operation'] = 'Описание жанра'
-        # context['some_list'] = 'object.guidebook.all'
+        context['some_list'] = 'object.genrebook.all'
+        detail = self.get_object()
+        print(detail)
+        print(detail.genrebook.all())
         return context   
 
 class UpdateGenre(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
@@ -129,7 +132,7 @@ class AddSeries(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView)
 
 class DetailSeries(generic.DetailView):
     model = models.Series
-    template_name = 'guide/detail_guide.html'
+    template_name = 'guide/detail_series.html'
     def get_context_data(self,*args, **kwargs):
         context = super().get_context_data(*args,**kwargs)
         context['operation'] = 'Данные о серии'

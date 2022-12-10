@@ -6,12 +6,24 @@
 {% endblock title %}
 
 {% block body %}
-{%csrf_token%}
     <h1>{{operation}}</h1>
     <h2>{{alarm_message}}</h2>
     {{object.pk}}<br>
     {{object.name}}<br>
-    {{object.author_book}}<br>
+
+   {% if object.author_book.all.count != 1 %}
+   Авторы:<br>
+   {% else %}
+   Автор:<br>
+   {% endif %}
+   {% for author in object.author_book.all %}
+   <ul>
+    <li>
+   {{author}}<br>
+    </li>
+   </ul>
+   {% endfor %}
+
     {{object.genre_book}}<br>
     {{object.price}}<br>            
     <form method = 'post'>

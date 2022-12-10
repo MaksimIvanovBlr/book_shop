@@ -9,7 +9,33 @@
 {% csrf_token %}
 <body>
     <h1>Информация об издательстве</h1>
-    {{object.pk}}<br>
-    {{object.name}}<br>
-
+    {% if user.is_staff %}
+    ID: {{object.pk}}<br>
+    {% endif %}
+    Название: {{object.name}}<br>
+    <h3>Книги данного издательства</h3>
+    <table class="table table-bordered border-primary">
+        <tr>
+          <td> Название </td>
+          <td> Цена  </td>
+          <td> Заказать  </td>
+          <td> Количество  </td>
+        </tr>
+    {% for obj in object.publishingbook.all %}
+        <tr>
+          <td><a href= "{% url 'book:detail-book' pk=obj.pk %}" >  {{obj.name}} </a> </td>
+          <td> {{obj.price}} </td>
+        <td>
+          <form action="{% url 'order:cart' %}" method="post">
+            {% csrf_token %}
+             <button type="submit" class="btn btn-success">Добавить в корзину</button> 
+             </td>
+             <td>
+              Количество:<input type="number" name="quantity" value="1" min="1">
+            <input type="hidden" name="book_pk" value="{{object.pk}}">
+        </form>
+      </td>
+    </tr>
+        {% endfor %}
+        </table>
 {% endblock body %}

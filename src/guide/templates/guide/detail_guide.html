@@ -8,21 +8,35 @@
 {% block body %}
 {% csrf_token %}
     <h1>{{operation}}</h1>
-    {{object.pk}}<br>
-    {{object.name}}<br>
-    {{object.description}}<br>
-    {% comment %} <h3>Книги автора</h3>
+    {% if user.is_staff %}
+    ID: {{object.pk}}<br>
+    {% endif %}
+    Название: {{object.name}}<br>
+    Описание: {{object.description |default:'Отсутствует'}}<br>
+    <h3>Книги данного жанра</h3>
     <table class="table table-bordered border-primary">
         <tr>
           <td> Название </td>
           <td> Цена  </td>
+          <td> Заказать  </td>
+          <td> Количество  </td>
         </tr>
-        {% for obj in some_list %}
+        {% for obj in object.genrebook.all %}
         <tr>
           <td><a href= "{% url 'book:detail-book' pk=obj.pk %}" >  {{obj.name}} </a> </td>
           <td> {{obj.price}} </td>
-        </tr>
+        <td>
+          <form action="{% url 'order:cart' %}" method="post">
+            {% csrf_token %}
+             <button type="submit" class="btn btn-success">Добавить в корзину</button> 
+             </td>
+             <td>
+              Количество:<input type="number" name="quantity" value="1" min="1">
+            <input type="hidden" name="book_pk" value="{{object.pk}}">
+        </form>
+      </td>
+    </tr>
         {% endfor %}
-        </table> {% endcomment %}
+        </table> 
 {% endblock body %}
 {% comment %} seriesbook, genrebook  publishingbook {% endcomment %}

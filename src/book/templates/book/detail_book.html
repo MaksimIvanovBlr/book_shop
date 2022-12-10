@@ -14,7 +14,18 @@
    <div>
    ID книги: {{object.pk}}<br>
    Название: {{object.name}}<br>
-   <a href="{% url 'guide:detail-author' pk=object.author_book.pk %}" >Автор: {{object.author_book}}<br> </a> 
+   {% if object.author_book.all.count != 1 %}
+   Авторы:<br>
+   {% else %}
+   Автор:<br>
+   {% endif %}
+   {% for author in object.author_book.all %}
+   <ul>
+    <li>
+   <a href="{% url 'guide:detail-author' pk=author.pk %}"> {{author}} </a><br>
+    </li>
+   </ul>
+   {% endfor %}
    <a href="{% url 'guide:detail-genre' pk=object.genre_book.pk %}">  Жанр: {{object.genre_book}}</a><br>
    <a href="{% url 'guide:detail-series' pk=object.series_book.pk %}"> Серия: {{object.series_book}}</a> <br>
    <a href="{% url 'guide:detail-publishing' pk=object.publishing_book.pk %}"> Издательство: {{object.publishing_book}}</a> <br>

@@ -30,7 +30,11 @@
     <tr>
 
         <td><a href= "{% url 'book:detail-book' pk=obj.pk %}">{{obj.name}} </a></td>
-        <td> {{obj.author_book}} </td>
+        <td>
+        {% for author in obj.author_book.all %}
+         {{author}}<br> 
+        {% endfor %}
+      </td>
         <td> {{obj.genre_book}}</td>
         {% if obj.availability == True %}
         <td> Доступен</td>
