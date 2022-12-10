@@ -22,7 +22,16 @@
   {% if user.is_staff  %}
   <p  class="btn btn-warning"> <a href= "{% url 'adminportal:adminpannel' %}" > Портал администраторов </a></p><br>
   {% endif %}
+
+
+{% if user.extenduser.pk %}
 <p  class="btn btn-warning"> <a href= "{% url 'custom_user:detail-user' pk=pk %}" > Информация о профиле/Редактировать  </a></p><br>
+{% else %}
+<p  class="btn btn-warning"> <a href= "{% url 'custom_user:create-user'  %}" > Добавьте расширенные данные  </a></p><br>
+{% endif %}
+
+
+
 <p  class="btn btn-warning"> <a href= "{% url 'order:user-list-order' %}"> Мои заказы </a></p><br>
 {% comment %} 
 <p  class="btn btn-warning"> <a href= "{% url 'order:list-order' %}"> Заказы </a></p><br>

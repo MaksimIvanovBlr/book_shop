@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from . import models, forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 
 class CreateUser(LoginRequiredMixin, generic.CreateView):
@@ -16,6 +16,10 @@ class CreateUser(LoginRequiredMixin, generic.CreateView):
         u_id = self.request.user
         form.instance.extend_user = User.objects.get(pk=u_id.pk)
         return super().form_valid(form)
+    def get_success_url(self):
+        group_to_add = Group.objects.get(name='Customers') 
+        group_to_add.user_set.add(self.request.user)
+        return super().get_success_url()
 
 class RegisterUser(generic.CreateView):
     form_class = forms.RegisterUserForm

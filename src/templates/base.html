@@ -59,7 +59,7 @@
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link disabled" >BYN/USD 2.48 | {% now "l d.m.Y" %}</a>
+            <a class="nav-link disabled" >{% now "l d.m.Y" %}</a>
           </li>        </ul>
         <form class="d-flex" role="search" action="{% url 'homepage:search' %}" method="get">
           <input class="form-control me-2" name="tosearch" type="text" placeholder="Поиск..." aria-label="Search">
