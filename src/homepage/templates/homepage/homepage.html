@@ -16,7 +16,15 @@
         <img src="{{ books.cover.url }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Название:{{books.name}}</h5>
-          <p class="card-text">Автор: {{books.author_book}}</p>
+{% if books.author_book.all.count != 1 %}
+      <p class="card-text">Авторы:</p>
+{% else %}
+     <p class="card-text">Автор:</p>
+{% endif %}
+{% for author in books.author_book.all %}
+          <p class="card-text"> {{author}}</p>
+{% endfor %}
+
           <p class="card-text">Жанр: {{books.genre_book}}</p>
           <p class="card-text">Цена: {{books.price}} BYN</p>
           <p class="card-text">Рейтинг: {{books.rating}}</p>
@@ -73,7 +81,16 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">{{books.name}}</h5>
-              <p class="card-text">Автор: {{books.author_book}}</p>
+
+        {% if books.author_book.all.count != 1 %}
+              <p class="card-text">Авторы:</p>
+        {% else %}
+             <p class="card-text">Автор:</p>
+        {% endif %}
+        {% for author in books.author_book.all %}
+                  <p class="card-text"> {{author}}</p>
+        {% endfor %}
+
               <p class="card-text">Цена: {{books.price}} BYN</p>
               <p class="card-text"><small class="text-muted">{{books.add_to_catalog}}</small></p>
             </div>
@@ -95,7 +112,16 @@
                 <img src="{{ books.cover.url }}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Название:{{books.name}}</h5>
-                  <p class="card-text">Автор: {{books.author_book}}</p>
+
+            {% if books.author_book.all.count != 1 %}
+                  <p class="card-text">Авторы:</p>
+            {% else %}
+                 <p class="card-text">Автор:</p>
+            {% endif %}
+            {% for author in books.author_book.all %}
+                      <p class="card-text"> {{author}}</p>
+            {% endfor %}
+
                   <p class="card-text">Жанр: {{books.genre_book}}</p>
                   <p class="card-text">Цена: {{books.price}} BYN</p>
                   <p class="card-text">Рейтинг: {{books.rating}}</p>
