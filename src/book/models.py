@@ -151,4 +151,7 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('book:detail-book', kwargs ={'pk':self.pk}) 
-# Create your models here.
+
+
+
+

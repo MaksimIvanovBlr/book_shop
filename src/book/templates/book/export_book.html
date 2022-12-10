@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Выгрузка списка книг
+{% endblock title %}
+
+{% block body %}
+    <h1>Выгрузка списка книг</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <p>Выберете формат файла</p>
+        <select name="file-format" class="form-control my-3"><option selected>Выберете формат</option><option>CSV</option><option>JSON</option><option>XLS (Excel)</option></select><br>
+        <button class="btn btn-primary" type="submit">Выгрузить</button><br>
+      </form>
+{% endblock body %}
+

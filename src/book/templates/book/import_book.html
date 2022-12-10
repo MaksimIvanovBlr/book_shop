@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Загрузка списка книг
+{% endblock title %}
+
+{% block body %}
+    <h1>Загрузка списка книг</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}<br />
+        <input type="file" name="importData"></p>
+    <p>Выберете формат файла</p>
+    <p>    <select name="file-format" class="form-control my-3"><option selected>Выберете формат...</option><option>CSV</option><option>JSON</option></select><br />
+        <button class="btn btn-primary" type="submit">Import</button><br />
+      </form>
+{% endblock body %}

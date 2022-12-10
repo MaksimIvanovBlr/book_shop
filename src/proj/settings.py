@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "custom_user",
     "comments",
     "mail_to_staff",
+    'import_export',
     
 ]
 
@@ -139,6 +140,8 @@ MEDIA_URL = "media/"
 
 MEDIA_ROOT = "/home/MaksimIvanovBlr/media"
 # MEDIA_ROOT = BASE_DIR/"media"
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.sendgrid.net'
