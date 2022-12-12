@@ -61,31 +61,41 @@
     {% for comment in object.book_comment.all %}
     <li>
         {% if user.is_staff %}
-        pk комментария: {{comment.pk}}
+        pk комментария: {{comment.pk}}<br>
         {% endif %}
         автор:{{comment.author}} <br>
         {{comment.create_date}} <br>
         сообщение:{{comment.message}} <br>
         <br>
+        {% if user.is_authenticated %}
         
-        {% if user.is_authenticated != user.is_staff %}
-        {% if user == comment.author %}
-         проверка1 <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+            {% if user.is_authenticated != user.is_staff %}
+                {% if user == comment.author %}
+                    <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+                {% else %}
+        {% comment %} <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br> {% endcomment %}
+                {% endif %}
+            {% else %}
+            <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
+            {% endif %}
+            
         {% endif %}
-        {% else %}
-        проверка2 <a href= "{% url 'comments:delete-comment-book' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i>Удалить комментарий</a><br><br>
-        {% endif %}
+        
          
     </li>
     {% endfor %}
     </ul>
     {% endif %}
     <p>
+        {% if user.is_authenticated %}
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{form |crispy}}
         <input type="submit" class="btn btn-success" value="Ok">
         </form>
+        {% else %}
+        <p>Зарегистрируйтесь чтобы оставлять комментарии </p>
+        {% endif %}
     </p>
 </div>
 
