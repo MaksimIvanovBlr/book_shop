@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from book import models, forms
 from django.db.models import Q
+from adminpannel import models as admin_models
 
 
 class HomePage(generic.TemplateView):
@@ -16,7 +17,8 @@ class HomePage(generic.TemplateView):
         context['book'] = models.Book.objects.filter(availability=True).order_by('-id')[:5]
         context['book_less_price'] = models.Book.objects.filter(availability=True).order_by('price')[:5]
         context['book_rating'] = models.Book.objects.filter(availability=True).order_by('rating')[:5]
-        context['discounts'] = ''
+        context['rate'] = admin_models.ExchangeRate.objects.get(pk=1)
+        # context['date_rate'] = ''
         return context
 
 
