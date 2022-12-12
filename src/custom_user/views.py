@@ -55,10 +55,7 @@ class UpdateUser(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = User
     form_class = forms.RegisterUserForm
     login_url = reverse_lazy('login')
-    if User.is_staff:
-        success_url = reverse_lazy('custom_user:list-user')
-    else:
-        success_url = reverse_lazy('adminportal:userportal')
+    success_url = reverse_lazy('adminportal:userpannel')
     template_name = 'custom_user/edit_user.html'
 
     def form_valid(self, form):
@@ -93,11 +90,7 @@ class UpdateExtendUser(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateVi
     model = models.ExtendUser
     form_class = forms.ExtendUserForm
     login_url = reverse_lazy('login')
-    if User.is_staff:
-        success_url = reverse_lazy('custom_user:list-user')
-    else:
-        success_url = reverse_lazy('homepage:home')
-
+    success_url = reverse_lazy('adminportal:userpannel')
     template_name = 'custom_user/edit_extenduser.html'
 
     def test_func(self):

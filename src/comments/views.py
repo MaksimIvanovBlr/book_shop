@@ -8,7 +8,7 @@ class DeleteCommentBook(UserPassesTestMixin, LoginRequiredMixin, generic.DeleteV
     model = models.CommentToBook
     login_url = reverse_lazy('login')
     template_name = 'comments/delete_comment.html'
-    success_url = reverse_lazy('book:list-book')
+    success_url = reverse_lazy('adminportal:userpannel')
 
     def test_func(self):
         if self.request.user.is_authenticated != self.request.user.is_staff:

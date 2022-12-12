@@ -174,7 +174,7 @@ class UpdateOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateView):
     model = models.Order
     form_class = forms.OrderForm
     login_url = reverse_lazy('login')
-    success_url = reverse_lazy('order:list-order')
+    success_url = reverse_lazy('homepage:home')
     template_name = 'order/edit_order.html'
 
     def test_func(self):
@@ -214,7 +214,7 @@ class UpdateStatusOrder(UserPassesTestMixin, LoginRequiredMixin, generic.UpdateV
     model = models.Order
     form_class = forms.ChangeOrderStatusForm
     login_url = reverse_lazy('login')
-    success_url = reverse_lazy('order:list-order')
+    success_url = reverse_lazy('adminportal:userpannel')
     template_name = 'order/status_order.html'
 
     def test_func(self):

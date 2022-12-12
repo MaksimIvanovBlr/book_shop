@@ -14,7 +14,7 @@ class HomePage(generic.TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['book'] = models.Book.objects.filter(availability=True).order_by('-id')[:5]
-        context['book_less_price'] = models.Book.objects.filter(availability=True).order_by('-price')[:5]
+        context['book_less_price'] = models.Book.objects.filter(availability=True).order_by('price')[:5]
         context['book_rating'] = models.Book.objects.filter(availability=True).order_by('rating')[:5]
         context['discounts'] = ''
         return context
